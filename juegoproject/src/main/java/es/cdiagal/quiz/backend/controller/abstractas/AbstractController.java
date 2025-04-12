@@ -11,7 +11,7 @@ import es.cdiagal.quiz.backend.model.abstractas.Conexion;
 
 public class AbstractController extends Conexion{
 
-static final String PATH_DB =  "src/main/resources/ahorcado.db";
+static final String PATH_DB =  "src/main/resources/database/quiz.db";
 
     private Properties propertiesLanguaje;
     private static String idiomaActual = "español";
