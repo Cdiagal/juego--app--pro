@@ -185,7 +185,7 @@ public class PartidaDAO extends Conexion {
                         LocalDateTime fecha = LocalDateTime.parse(cursor.getString("fecha"));
                         Duration duracion = Duration.between(fecha, LocalDateTime.now());
     
-                        if (duracion.toMinutes() < 1) {
+                        if (duracion.toHours() < 24) {
                             return new PartidaModel(
                                 cursor.getInt("id"),
                                 cursor.getInt("id_usuario"),
