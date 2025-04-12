@@ -2,6 +2,7 @@
 package es.cdiagal.quiz.backend.model.entities;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class PartidaModel {
     private int id;
@@ -33,24 +34,85 @@ public class PartidaModel {
         this.fecha = fecha;
     }
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
 
-    public int getIdUsuario() { return idUsuario; }
-    public void setIdUsuario(int idUsuario) { this.idUsuario = idUsuario; }
+    public int getId() {
+        return this.id;
+    }
 
-    public int getPuntuacion() { return puntuacion; }
-    public void setPuntuacion(int puntuacion) { this.puntuacion = puntuacion; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public int getAciertos() { return aciertos; }
-    public void setAciertos(int aciertos) { this.aciertos = aciertos; }
+    public int getIdUsuario() {
+        return this.idUsuario;
+    }
 
-    public int getErrores() { return errores; }
-    public void setErrores(int errores) { this.errores = errores; }
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
 
-    public int getDificultad() { return dificultad; }
-    public void setDificultad(int dificultad) { this.dificultad = dificultad; }
+    public int getPuntuacion() {
+        return this.puntuacion;
+    }
 
-    public LocalDateTime getFecha() { return fecha; }
-    public void setFecha(LocalDateTime fecha) { this.fecha = fecha; }
+    public void setPuntuacion(int puntuacion) {
+        this.puntuacion = puntuacion;
+    }
+
+    public int getAciertos() {
+        return this.aciertos;
+    }
+
+    public void setAciertos(int aciertos) {
+        this.aciertos = aciertos;
+    }
+
+    public int getErrores() {
+        return this.errores;
+    }
+
+    public void setErrores(int errores) {
+        this.errores = errores;
+    }
+
+    public int getDificultad() {
+        return this.dificultad;
+    }
+
+    public void setDificultad(int dificultad) {
+        this.dificultad = dificultad;
+    }
+
+    public LocalDateTime getFecha() {
+        return this.fecha;
+    }
+
+    public void setFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
+    }
+    
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof PartidaModel)) {
+            return false;
+        }
+        PartidaModel partidaModel = (PartidaModel) o;
+        return id == partidaModel.id ;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+    
+    
+
+    @Override
+    public String toString() {
+        return id + idUsuario + puntuacion + aciertos + errores + dificultad + fecha.toString();
+    }
+
 }
