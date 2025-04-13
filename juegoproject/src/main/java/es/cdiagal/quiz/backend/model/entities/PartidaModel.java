@@ -2,7 +2,13 @@
 package es.cdiagal.quiz.backend.model.entities;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
+import java.util.Properties;
+
+import com.fasterxml.jackson.databind.ser.impl.PropertySerializerMap;
+
+import es.cdiagal.quiz.backend.controller.abstractas.AbstractController;
 
 public class PartidaModel {
     private int id;
@@ -109,10 +115,24 @@ public class PartidaModel {
     }
     
     
-
+    /**
+     * Metodo toString() modificado para que la fecha se muestre en formato adaptado al idioma seleccionado.
+     */
     @Override
     public String toString() {
-        return id + idUsuario + puntuacion + aciertos + errores + dificultad + fecha.toString();
+        AbstractController controller = new AbstractController();
+        Properties properties = controller.loadLanguage("language", AbstractController.getIdiomaActual());
+
+        String pattern = properties.getProperty("formato.fecha" , "yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+
+        return "Partida :" +
+                " id: " + idUsuario +
+                ", Puntuación: " + puntuacion +
+                ", aciertos: " + aciertos +
+                ", errores: " + errores +
+                ", dificultad: " + dificultad +
+                ", fecha: " + fecha.toString();
     }
 
 }

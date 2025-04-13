@@ -65,6 +65,28 @@ public class UsuarioDAO extends Conexion {
         return false;
     }
 
+
+    public int obtenerNivel(int idUsuario) {
+        String sql = "SELECT nivel FROM usuarios WHERE id = ?";
+        try {
+            conectar();
+            try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
+                stmt.setInt(1, idUsuario);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (rs.next()) {
+                        return rs.getInt("nivel");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            cerrar();
+        }
+        return 1; // Nivel por defecto si no se encuentra el usuario
+    }
+
+
     public boolean actualizarNivel(UsuarioModel usuario) {
         String sql = "UPDATE usuarios SET nivel = ? WHERE id = ?";
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
@@ -76,5 +98,5 @@ public class UsuarioDAO extends Conexion {
         }
         return false;
     }
-    
+
 }

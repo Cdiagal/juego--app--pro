@@ -1,7 +1,23 @@
 package es.cdiagal.quiz.initApp;
 
-public class MainApplication {
+import java.io.IOException;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+public class MainApplication extends Application {
+    @Override
+    public void start(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/fxml/splash.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 450, 600);
+        stage.setTitle("TaskYourself");
+        stage.setScene(scene);
+        stage.show();
+    }
+
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        launch();
     }
 }

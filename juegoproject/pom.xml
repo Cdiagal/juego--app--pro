@@ -183,7 +183,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>es.cdiagal.taskyourself.initApp.MainApplication</mainClass>
+                    <mainClass>es.cdiagal.quiz.initApp.MainApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

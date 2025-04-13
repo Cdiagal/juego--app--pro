@@ -13,7 +13,7 @@ public class AbstractController extends Conexion{
 
 static final String PATH_DB =  "src/main/resources/database/quiz.db";
 
-    private Properties propertiesLanguaje;
+    private Properties propertiesLanguage;
     private static String idiomaActual = "español";
     
     public AbstractController() {
@@ -29,12 +29,12 @@ static final String PATH_DB =  "src/main/resources/database/quiz.db";
     }
 
     //Getter y setter de los properties para poder usarlos en otras ventanas
-    public Properties getPropertiesLanguaje() {
-        return this.propertiesLanguaje;
+    public Properties getPropertiesLanguage() {
+        return this.propertiesLanguage;
     }
 
-    public void setPropertiesLanguaje(Properties propertiesLanguaje) {
-        this.propertiesLanguaje = propertiesLanguaje;
+    public void setPropertiesLanguage(Properties propertiesLanguage) {
+        this.propertiesLanguage = propertiesLanguage;
     }
 
     /**
@@ -63,14 +63,6 @@ static final String PATH_DB =  "src/main/resources/database/quiz.db";
         } catch (Exception e) {
             e.getStackTrace();
         }
-        
-        /**
-        try (FileInputStream input = new FileInputStream(path)) {
-            properties.load(input);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        */
         return properties;
     }
 

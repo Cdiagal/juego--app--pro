@@ -206,5 +206,80 @@ public class PartidaDAO extends Conexion {
         }
         return null;
     }
+
+    /**
+     * Metodo que va sumando puntos a medida que el usuario va adquiriendo
+     * @param idUsuario
+     * @return puntuacion.
+     */
+    public int sumarPuntos(int idUsuario) {
+        String sql = "SELECT SUM(puntuacion) AS total FROM partidas WHERE id_usuario = ?";
+        try {
+            conectar();
+            try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
+                stmt.setInt(1, idUsuario);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (rs.next()) {
+                        return rs.getInt("total");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            cerrar();
+        }
+        return 0;
+    }
+    
+    /**
+     * MEtodo que cuenta las partidas del jugador.
+     * @param idUsuario
+     * @return
+     */
+    public int contarPartidas(int idUsuario) {
+        String sql = "SELECT COUNT(*) AS total FROM partidas WHERE id_usuario = ?";
+        try {
+            conectar();
+            try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
+                stmt.setInt(1, idUsuario);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (rs.next()) {
+                        return rs.getInt("total");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            cerrar();
+        }
+        return 0;
+    }
+    
+    /**
+     * Metodo que obtiene la mejor puntuacion para mostrarla.
+     * @param idUsuario
+     * @return
+     */
+    public int obtenerMejorPuntuacion(int idUsuario) {
+        String sql = "SELECT MAX(puntuacion) AS mejor FROM partidas WHERE id_usuario = ?";
+        try {
+            conectar();
+            try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
+                stmt.setInt(1, idUsuario);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (rs.next()) {
+                        return rs.getInt("mejor");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            cerrar();
+        }
+        return 0;
+    }
     
 }

@@ -1,0 +1,20 @@
+<AnchorPane fx:id="rootPane"
+            xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="es.cdiagal.quiz.controller.SummaryController"
+            prefWidth="400" prefHeight="300">
+
+    <VBox spacing="10" alignment="CENTER" layoutX="20" layoutY="20" prefWidth="360">
+        <Label fx:id="labelResumen" text="Resumen de la partida" style="-fx-font-size: 18px;"/>
+        <Label fx:id="labelPuntos" />
+        <Label fx:id="labelAciertos" />
+        <Label fx:id="labelErrores" />
+        <Label fx:id="labelDificultad" />
+        <Label fx:id="labelDuracion" />
+
+        <HBox spacing="15" alignment="CENTER">
+            <Button text="Nueva partida" onAction="#nuevaPartida"/>
+            <Button text="Salir" onAction="#salir"/>
+        </HBox>
+    </VBox>
+</AnchorPane>
