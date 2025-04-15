@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane fx:id="innitAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="450.0" styleClass="innitAnchorPane" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.cdiagal.quiz.backend.controller.InnitController">
+   <children>
+      <Pane fx:id="logoInitPane" layoutX="85.0" layoutY="64.0" prefHeight="280.0" prefWidth="280.0">
+         <children>
+            <ImageView fitHeight="280.0" fitWidth="280.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/BrainQuiz-logo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <JFXButton fx:id="loginButton" layoutX="125.0" layoutY="385.0" onAction="#onClicOpenLoginScene" prefHeight="45.0" prefWidth="200.0" styleClass="loginButton" stylesheets="@../styles/styles.css" text="Iniciar sesión" />
+      <JFXButton fx:id="registerButton" layoutX="125.0" layoutY="452.0" onAction="#onClicOpenRegisterScene" prefHeight="45.0" prefWidth="200.0" styleClass="registerButton" stylesheets="@../styles/styles.css" text="Registrarse" />
+   </children>
+</AnchorPane>

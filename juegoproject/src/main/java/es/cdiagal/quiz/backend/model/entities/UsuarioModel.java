@@ -3,6 +3,9 @@ package es.cdiagal.quiz.backend.model.entities;
 
 import java.util.Objects;
 
+/**
+ * Clase que controla toda la logica de Usuario.
+ */
 public class UsuarioModel {
     private int id;
     private String nickname;
@@ -12,8 +15,22 @@ public class UsuarioModel {
     private int puntos;
     private int nivel;
 
+    /**
+     * Constructor vacio de la clase.
+     */
     public UsuarioModel() {}
 
+
+    /**
+     * Constructor con todas las propiedades de la clase.
+     * @param id
+     * @param nickname
+     * @param email
+     * @param password
+     * @param racha
+     * @param puntos
+     * @param nivel
+     */
     public UsuarioModel(int id, String nickname, String email, String password, int racha, int puntos, int nivel) {
         this.id = id;
         this.nickname = nickname;
@@ -24,6 +41,12 @@ public class UsuarioModel {
         this.nivel = nivel;
     }
 
+    /**
+     * Constructor que contiene los atributos de la clase para gestionar 
+     * @param nickname
+     * @param email
+     * @param password
+     */
     public UsuarioModel(String nickname, String email, String password) {
         this.nickname = nickname;
         this.email = email;

@@ -2,6 +2,13 @@
 package es.cdiagal.quiz.backend.model.entities;
 import java.util.Objects;
 
+
+/**
+ * Clase que gestiona la logica de las preguntas.
+ * @author cdiagal 
+ * @version 1.0.0
+ */
+
 public class PreguntaModel {
     private int id;
     private String enunciado;
@@ -12,6 +19,23 @@ public class PreguntaModel {
     private String respuestaCorrecta;
     private int dificultad;
 
+
+    /**
+     * Constructor vacio.
+     */
+    public PreguntaModel() {}
+
+    /**
+     * Constructor con todos los atributos de la clase.
+     * @param id
+     * @param enunciado
+     * @param opcionA
+     * @param opcionB
+     * @param opcionC
+     * @param opcionD
+     * @param respuestaCorrecta
+     * @param dificultad
+     */
     public PreguntaModel(int id, String enunciado, String opcionA, String opcionB, 
                     String opcionC, String opcionD, String respuestaCorrecta, int dificultad) {
         this.id = id;
@@ -24,9 +48,9 @@ public class PreguntaModel {
         this.dificultad = dificultad;
     }
 
-    public PreguntaModel() {}
-
-
+    /**
+     * Constructor con los atributos necesarios para gestionar la BBDD.
+     */
     public PreguntaModel(String enunciado, String opcionA, String opcionB, String opcionC, String opcionD, String respuestaCorrecta, int dificultad) {
         this.enunciado = enunciado;
         this.opcionA = opcionA;
@@ -36,9 +60,9 @@ public class PreguntaModel {
         this.respuestaCorrecta = respuestaCorrecta;
         this.dificultad = dificultad;
     }
+
+
     // Getters y setters
-
-
     public int getId() {
         return this.id;
     }
@@ -105,6 +129,9 @@ public class PreguntaModel {
     
     
 
+    /**
+     * Metodos equals() y hashCode().
+     */
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -121,10 +148,14 @@ public class PreguntaModel {
         return Objects.hash(id);
     }
     
-
+    /**
+     * Metodo toString().
+     */
     @Override
     public String toString() {
-        return id + enunciado + opcionA + opcionB + opcionC + opcionD + respuestaCorrecta + dificultad;
+        return "ID: " + id + " Enunciado: " + enunciado + " Opcion A: " + opcionA + " Opcion B: " + opcionB + 
+        " Opcion C: " + opcionC + " Opcion D: " + opcionD + " Respuesta correcta: " + respuestaCorrecta + 
+        " Dificultad :" + dificultad;
     }
     
 }

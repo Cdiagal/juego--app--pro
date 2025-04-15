@@ -27,10 +27,11 @@ public class SplashController {
         fade.setOnFinished(event -> abrirVentanaPrincipal());
         fade.play();
     }
-
+    
+    @FXML
     private void abrirVentanaPrincipal() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/start.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/innit.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setTitle("BrainQuiz");

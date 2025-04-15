@@ -1,7 +1,11 @@
 package es.cdiagal.quiz.backend.model.entities;
 
 import java.util.Objects;
-
+/**
+ * Clase que gestiona toda la logica del resumen de las partidas jugadas.
+ * @author cdiagal
+ * @version 1.0.0
+ */
 public class SummaryModel {
     
     private int totalPuntos;
@@ -10,9 +14,20 @@ public class SummaryModel {
     private int nivel;
     private double progresoSiguienteNivel; // Valor entre 0.0 y 1.0
 
+    /**
+     * Constructor vacio 
+     */
     public SummaryModel() {
     }
 
+    /**
+     * Constructor con todas las propiedades de la clase.
+     * @param totalPuntos
+     * @param partidasJugadas
+     * @param mejorPuntuacion
+     * @param nivel
+     * @param progresoSiguienteNivel
+     */
     public SummaryModel(int totalPuntos, int partidasJugadas, int mejorPuntuacion, int nivel, double progresoSiguienteNivel) {
         this.totalPuntos = totalPuntos;
         this.partidasJugadas = partidasJugadas;
@@ -63,6 +78,10 @@ public class SummaryModel {
         this.progresoSiguienteNivel = progresoSiguienteNivel;
     }
 
+
+    /**
+     * Metodo toString().
+     */
     @Override
     public String toString() {
         return "Resumen{" +
@@ -74,7 +93,9 @@ public class SummaryModel {
                 '}';
     }
 
-
+    /**
+     * Metodos equals() y hashCode().
+     */
     @Override
     public boolean equals(Object o) {
         if (o == this)

@@ -10,6 +10,13 @@ import com.fasterxml.jackson.databind.ser.impl.PropertySerializerMap;
 
 import es.cdiagal.quiz.backend.controller.abstractas.AbstractController;
 
+
+/**
+ * Clase que gestiona toda la logica de las partidas.
+ * @author cdiagal  
+ * @version 1.0.0
+ */
+
 public class PartidaModel {
     private int id;
     private int idUsuario;
@@ -19,8 +26,21 @@ public class PartidaModel {
     private int dificultad;
     private LocalDateTime fecha;
 
+    /**
+     * Constructor vacio.
+     */
     public PartidaModel() {}
 
+    /**
+     * Constructor con todos los atributos de la clase Partida.
+     * @param id
+     * @param idUsuario
+     * @param puntuacion
+     * @param aciertos
+     * @param errores
+     * @param dificultad
+     * @param fecha
+     */
     public PartidaModel(int id, int idUsuario, int puntuacion, int aciertos, int errores, int dificultad, LocalDateTime fecha) {
         this.id = id;
         this.idUsuario = idUsuario;
@@ -31,6 +51,15 @@ public class PartidaModel {
         this.fecha = fecha;
     }
 
+    /**
+     * Constructor con los atributos necesarios para gestionar la BBDD.
+     * @param idUsuario
+     * @param puntuacion
+     * @param aciertos
+     * @param errores
+     * @param dificultad
+     * @param fecha
+     */
     public PartidaModel(int idUsuario, int puntuacion, int aciertos, int errores, int dificultad, LocalDateTime fecha) {
         this.idUsuario = idUsuario;
         this.puntuacion = puntuacion;
@@ -40,7 +69,7 @@ public class PartidaModel {
         this.fecha = fecha;
     }
 
-
+    //Getters y Setters.
     public int getId() {
         return this.id;
     }
@@ -97,7 +126,9 @@ public class PartidaModel {
         this.fecha = fecha;
     }
     
-
+    /**
+     * Metodos equals() y hashCode()
+     */
     @Override
     public boolean equals(Object o) {
         if (o == this)
