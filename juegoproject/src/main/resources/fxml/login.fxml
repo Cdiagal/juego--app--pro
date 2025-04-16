@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXPasswordField?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import io.github.palexdev.mfxcore.controls.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="450.0" styleClass="loginAnchorPane" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="loginLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="88.0" layoutY="114.0" prefHeight="54.0" prefWidth="274.0" styleClass="loginLabel" stylesheets="@../styles/styles.css" text="Iniciar sesión" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <MFXTextField fx:id="userLoginTextfield" graphicTextGap="0.0" layoutX="105.0" layoutY="282.0" prefHeight="40.0" prefWidth="240.0" promptText="           Usuario">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </MFXTextField>
+      <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="105.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/icons8-user-48.png" />
+         </image>
+      </ImageView>
+      <MFXPasswordField fx:id="loginPasswordfield" caretVisible="false" floatingTextGap="0.0" layoutX="105.0" layoutY="391.0" prefWidth="240.0" promptText="          Contraseña">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </MFXPasswordField>
+      <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="105.0" layoutY="393.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/icons8-contraseña-48.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

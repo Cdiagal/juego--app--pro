@@ -10,7 +10,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class SplashController {
+public class TransitionController {
 
     @FXML
     protected StackPane splashStackPane;

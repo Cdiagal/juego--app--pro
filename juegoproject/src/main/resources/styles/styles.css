@@ -1,4 +1,4 @@
-/*Init*/
+/*INIT WINDOW*/
 
 .innitAnchorPane{
     -fx-background-color:#fef3df;
@@ -49,6 +49,16 @@
 }
 */
 
+/*LOGIN WINDOW*/
+
+/*Anchorpane*/
+.loginAnchorPane{
+    -fx-background-color:#fef3df;
+}
+
+.loginLabel{
+    fx-font-size: 22px ;
+}
 
 .root {
     -fx-font-family: 'Segoe UI', sans-serif;
