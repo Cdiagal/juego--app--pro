@@ -41,19 +41,65 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.3, 0, 2);
 }
 
-/**
-.circle-blur {
-    -fx-background-radius: 50%;
-    -fx-background-color: rgba(255, 255, 255, 0.15);
-    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.1), 30, 0.1, 0, 0);
+/*ComboBox*/
+.languageComboBox .combo-box-base {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
 }
-*/
+
+.languageComboBox {
+    -fx-background-radius: 100%;
+    -fx-border-radius: 100%;
+    -fx-background-color: transparent;
+    -fx-border-color: gray;
+    -fx-border-width: 1;
+    -fx-min-width: 30px;
+    -fx-min-height: 30px;
+    -fx-max-width: 30px;
+    -fx-max-height: 30px;
+    -fx-padding: 0;
+    -fx-alignment: center;
+}
+
+.languageComboBox .arrow-button {
+    -fx-background-color: transparent;
+    -fx-opacity: 0;
+    -fx-pref-width: 0;
+}
+
+.languageComboBox .arrow-button .arrow {
+    -fx-shape: "";
+}
+
+.languageComboBox .list-cell {
+    -fx-alignment: center;
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+    -fx-text-fill: transparent; 
+}
 
 /*LOGIN WINDOW*/
 
 /*Anchorpane*/
 .loginAnchorPane{
     -fx-background-color:#fef3df;
+}
+
+.acceptLoginButton{
+    -fx-text-fill:white;
+    -fx-font-size: 16px;
+    -fx-font-weight: 900;
+    -fx-background-color: #ebb106;
+    -fx-border-color: grey;
+    -fx-border-radius: 10px;
+    -fx-background-radius:10px;
+    -fx-border-width: 2px;
+    -fx-alignment: center;
+    -fx-content-display: center;
+    -fx-padding: 5px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.3, 0, 2);
 }
 
 .loginLabel{

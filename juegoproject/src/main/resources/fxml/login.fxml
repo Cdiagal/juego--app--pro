@@ -1,40 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXPasswordField?>
-<?import io.github.palexdev.materialfx.controls.MFXTextField?>
-<?import io.github.palexdev.mfxcore.controls.Label?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="450.0" styleClass="loginAnchorPane" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="450.0" styleClass="loginAnchorPane" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.cdiagal.quiz.backend.controller.LoginController">
    <children>
-      <Label fx:id="loginLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="88.0" layoutY="114.0" prefHeight="54.0" prefWidth="274.0" styleClass="loginLabel" stylesheets="@../styles/styles.css" text="Iniciar sesión" textAlignment="CENTER">
+      <JFXButton fx:id="backButton" contentDisplay="CENTER" layoutX="14.0" layoutY="44.0" onAction="#onClickBackButton" prefHeight="38.0" prefWidth="38.0" text=" " textAlignment="CENTER">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
+               <image>
+                  <Image url="@../images/adelante.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         </JFXButton>
+      <PasswordField fx:id="userLoginTextfield" layoutX="105.0" layoutY="340.0" prefHeight="50.0" prefWidth="240.0" promptText="    Contraseña">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </PasswordField>
+      <TextField fx:id="userLoginTextfield" layoutX="105.0" layoutY="260.0" prefHeight="50.0" prefWidth="240.0" promptText="    Usuario">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+      <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="135.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/icons8-cerebro-100%20(1).png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="178.0" fitWidth="188.0" layoutX="237.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" rotate="1.0">
+         <image>
+            <Image url="@../images/signo-de-interrogación-rojo.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="54.0" fitWidth="78.0" layoutX="222.0" layoutY="91.0" pickOnBounds="true" preserveRatio="true" rotate="126.9">
+         <image>
+            <Image url="@../images/signo-de-interrogación-100.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="40.0" fitWidth="28.0" layoutX="250.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/signo-de-interrogación-100%20(2).png" />
+         </image>
+      </ImageView>
+      <Label fx:id="loginLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="88.0" layoutY="162.0" prefHeight="54.0" prefWidth="274.0" styleClass="loginLabel" stylesheets="@../styles/styles.css" text="Iniciar sesión" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>
       </Label>
-      <MFXTextField fx:id="userLoginTextfield" graphicTextGap="0.0" layoutX="105.0" layoutY="282.0" prefHeight="40.0" prefWidth="240.0" promptText="           Usuario">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </MFXTextField>
-      <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="105.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="305.0" layoutY="265.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/icons8-user-48.png" />
          </image>
       </ImageView>
-      <MFXPasswordField fx:id="loginPasswordfield" caretVisible="false" floatingTextGap="0.0" layoutX="105.0" layoutY="391.0" prefWidth="240.0" promptText="          Contraseña">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </MFXPasswordField>
-      <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="105.0" layoutY="393.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="306.0" layoutY="345.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/icons8-contraseña-48.png" />
+            <Image url="@../images/candado.png" />
          </image>
       </ImageView>
+      <Hyperlink fx:id="recoveryLink" layoutX="154.0" layoutY="505.0" onAction="#onClicRecoverPassword" text="¿Olvidaste la contraseña?" />
+      <ImageView fitHeight="91.0" fitWidth="95.0" layoutX="261.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true" rotate="17.7">
+         <image>
+            <Image url="@../images/signo-de-interrogación-100.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="49.0" fitWidth="49.0" layoutX="215.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true" rotate="-33.3">
+         <image>
+            <Image url="@../images/signo-de-interrogación-100%20(1).png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="28.0" fitWidth="40.0" layoutX="257.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/signo-de-interrogación-100%20(1).png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="100.0" fitWidth="107.0" layoutX="212.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" rotate="-35.0">
+         <image>
+            <Image url="@../images/signo-de-interrogación-100%20(2).png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="82.0" fitWidth="82.0" layoutX="262.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/signo-de-interrogación-100%20(1).png" />
+         </image>
+      </ImageView>
+      <JFXButton fx:id="acceptLoginButton" layoutX="125.0" layoutY="452.0" onAction="#onClicAcceptLogin" prefHeight="30.0" prefWidth="200.0" styleClass="acceptLoginButton" stylesheets="@../styles/styles.css" text="Aceptar" />
+      <Text fx:id="loginTextAdvise" layoutX="125.0" layoutY="426.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="200.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
