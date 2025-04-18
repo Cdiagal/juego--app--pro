@@ -52,7 +52,7 @@
             <Image url="@../images/signo-de-interrogación-100%20(2).png" />
          </image>
       </ImageView>
-      <Label fx:id="loginLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="88.0" layoutY="162.0" prefHeight="54.0" prefWidth="274.0" styleClass="loginLabel" stylesheets="@../styles/styles.css" text="Iniciar sesión" textAlignment="CENTER">
+      <Label fx:id="loginLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="88.0" layoutY="162.0" prefHeight="54.0" prefWidth="274.0" styleClass="loginLabel" stylesheets="@../styles/styles.css" text="Iniciar sesión" textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>
@@ -93,7 +93,7 @@
             <Image url="@../images/signo-de-interrogación-100%20(1).png" />
          </image>
       </ImageView>
-      <JFXButton fx:id="acceptLoginButton" layoutX="125.0" layoutY="452.0" onAction="#onClicAcceptLogin" prefHeight="30.0" prefWidth="200.0" styleClass="acceptLoginButton" stylesheets="@../styles/styles.css" text="Aceptar" />
+      <JFXButton fx:id="acceptLoginButton" layoutX="125.0" layoutY="452.0" onAction="#onClicAcceptLogin" minHeight="30.0" minWidth="200.0" styleClass="acceptLoginButton" stylesheets="@../styles/styles.css" text="Aceptar" />
       <Text fx:id="loginTextAdvise" layoutX="125.0" layoutY="426.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="200.0">
          <font>
             <Font size="14.0" />

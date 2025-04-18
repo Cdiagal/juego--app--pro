@@ -49,6 +49,7 @@ public class LoginController extends AbstractController{
 
                 stage.setTitle("Información");
                 stage.setScene(scene);
+                stage.sizeToScene();
                 stage.show();
             } catch (Exception e) {
                 System.out.println("Error al cargar la página.");
@@ -68,6 +69,7 @@ public class LoginController extends AbstractController{
             Scene scene = new Scene(fxmlLoader.load(), 451,600);
             stage.setTitle("Recuperar contraseña");
             stage.setScene(scene);
+            stage.sizeToScene();
             stage.show();
         } catch (Exception e) {
             System.out.println("Error al cargar la página.");
@@ -82,10 +84,11 @@ public class LoginController extends AbstractController{
     protected void onClickBackButton(){
         try {
             Stage stage = (Stage) backButton.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("innit.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/fxml/innit.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 450, 600);
             stage.setTitle("BrainQuiz");
             stage.setScene(scene);
+            stage.sizeToScene();
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();

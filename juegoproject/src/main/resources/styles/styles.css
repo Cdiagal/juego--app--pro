@@ -1,3 +1,9 @@
+/* TRANSITION */
+.transitionStackPane{
+    -fx-background-color: #fef3df;
+}
+
+
 /*INIT WINDOW*/
 
 .innitAnchorPane{
@@ -102,6 +108,34 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.3, 0, 2);
 }
 
+/*REGISTER WINDOW*/
+
+.registerAnchorPane{
+    -fx-background-color: #fef3df;
+    
+}
+
+.nicknameRegisterPane{
+    -fx-background-color: grey;
+    -fx-border-radius: 15;
+    -fx-background-radius:15;
+}
+.passwordRegisterPane{
+    -fx-background-color: #ebb106;
+    -fx-border-radius: 15;
+    -fx-background-radius:15;
+}
+
+.emailRegisterPane{
+    -fx-background-color: #017f76;
+    -fx-border-radius: 15;
+    -fx-background-radius:15;
+}
+
+
+
+
+/**
 .loginLabel{
     fx-font-size: 22px ;
 }
@@ -158,3 +192,4 @@
 .progress-bar {
     -fx-accent: #00bfb2;
 }
+    */

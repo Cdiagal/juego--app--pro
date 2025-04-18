@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="registerAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="650.0" minWidth="450.0" prefHeight="699.0" prefWidth="450.0" styleClass="registerAnchorPane" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+     <JFXButton fx:id="backButton" contentDisplay="CENTER" layoutX="14.0" layoutY="44.0" onAction="#onClickBackButton" prefHeight="38.0" prefWidth="38.0" text=" " textAlignment="CENTER">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
+               <image>
+                  <Image url="@../images/adelante.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         </JFXButton>
+      <VBox fx:id="registerVBox" alignment="TOP_CENTER" layoutX="25.0" layoutY="30.0" minHeight="550.0" minWidth="400.0">
+         <children>
+            <Pane prefHeight="651.0" prefWidth="400.0">
+               <children>
+                  <Pane fx:id="passwordRegisterPane" layoutX="61.0" layoutY="435.0" prefHeight="167.0" prefWidth="278.0" styleClass="passwordRegisterPane" stylesheets="@../styles/styles.css">
+                     <children>
+                        <Label fx:id="registerPasswordLabel" layoutX="38.0" layoutY="22.0" text="Contraseña" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="registerPasswordTextField" layoutX="38.0" layoutY="51.0" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="40.0" prefHeight="30.0" prefWidth="298.0" promptText="Introduzca una contraseña" />
+                        <TextField fx:id="registerRepeatPasswordTextField" layoutX="38.0" layoutY="101.0" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="40.0" prefHeight="30.0" prefWidth="298.0" promptText="Repita su contraseña" />
+                        <Label fx:id="passwordRegisterAdviseLabel" layoutX="124.0" layoutY="140.0" prefHeight="17.0" prefWidth="18.0" wrapText="true" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="emailRegisterPane" layoutX="61.0" layoutY="235.0" prefHeight="167.0" prefWidth="278.0" styleClass="emailRegisterPane" stylesheets="@../styles/styles.css">
+                     <children>
+                        <TextField fx:id="registerEmailTextField" layoutX="37.0" layoutY="50.0" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="40.0" prefHeight="30.0" prefWidth="298.0" promptText="Introduzca su email" />
+                        <Label fx:id="registerEmailLabel" layoutX="38.0" layoutY="22.0" text="Email" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="emailRegisterAdviseLabel" layoutX="124.0" layoutY="140.0" wrapText="true" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="nicknameRegisterPane" layoutX="61.0" layoutY="82.0" prefHeight="118.0" prefWidth="278.0" styleClass="nicknameRegisterPane" stylesheets="@../styles/styles.css">
+                     <children>
+                        <Label fx:id="nicknameRegisterAdviseLabel" layoutX="125.0" layoutY="89.0" wrapText="true" />
+                     </children>
+                  </Pane>
+                  <Label fx:id="registerBigLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="123.0" layoutY="24.0" minHeight="40.0" minWidth="150.0" text="REGISTRO" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="25.0" />
+                     </font></Label>
+                  <TextField fx:id="registerRepeatEmailTextField" layoutX="98.0" layoutY="336.0" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="40.0" prefHeight="30.0" prefWidth="298.0" promptText="Repita su email" />
+                  <TextField fx:id="registerNicknameLabel" layoutX="98.0" layoutY="126.0" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="40.0" prefHeight="30.0" prefWidth="298.0" promptText="Introduzca un alias" />
+                  <Label fx:id="registerNicknameLabel" layoutX="98.0" layoutY="97.0" text="Alias" textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
