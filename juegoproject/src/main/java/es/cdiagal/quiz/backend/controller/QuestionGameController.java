@@ -23,10 +23,6 @@ public class QuestionGameController extends AbstractController {
     private PreguntaModel preguntaActual;
     private UsuarioModel usuario;
 
-    public void setUsuario(UsuarioModel usuario) {
-        this.usuario = usuario;
-    }
-
     @FXML private Label questionLabel;
     @FXML private Label optionLabel1, optionLabel2, optionLabel3, optionLabel4;
     @FXML private ProgressBar timerBar;
@@ -37,16 +33,11 @@ public class QuestionGameController extends AbstractController {
 
     private final PreguntaServiceModel preguntaService = new PreguntaServiceModel("src/main/resources/database/quiz.db");
 
-    @FXML
-    public void initialize() {
-    if (usuario != null) {
+    public void setUsuario(UsuarioModel usuario) {
+        this.usuario = usuario;
         preguntas = preguntaService.obtenerPreguntasParaUsuario(usuario, 10);
         mostrarPregunta();
-    } else {
-        System.out.println("Usuario no establecido aún.");
     }
-}
-
 
     private void mostrarPregunta() {
         if (indexPregunta >= preguntas.size()) {
@@ -109,7 +100,6 @@ public class QuestionGameController extends AbstractController {
             paneSeleccionado.setStyle("-fx-background-color: #F4A7A7;");
         }
 
-        // Continuar tras pequeña pausa
         Timeline wait = new Timeline(new KeyFrame(Duration.seconds(2), e -> siguientePregunta()));
         wait.setCycleCount(1);
         wait.play();
