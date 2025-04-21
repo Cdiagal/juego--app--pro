@@ -100,7 +100,7 @@ public class PartidaDAO extends Conexion {
      * Metodo que crea una partida nueva en la base de datos.
      */
     public boolean insertarPartida(PartidaModel partida) {
-    String sql = "INSERT INTO partidas (id_usuario, puntuacion, aciertos, errores, dificultad, fecha) VALUES (?, ?, ?, ?, ?, ?)";
+    String sql = "INSERT INTO partidas (id_usuario, puntuacion, aciertos, errores, dificultad, fecha, id_ultima_pregunta) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             conectar();
             try (PreparedStatement PreparedStatement = getConnection().prepareStatement(sql)) {
@@ -110,6 +110,7 @@ public class PartidaDAO extends Conexion {
                 PreparedStatement.setInt(4, partida.getErrores());
                 PreparedStatement.setInt(5, partida.getDificultad());
                 PreparedStatement.setString(6, partida.getFecha().toString());
+                PreparedStatement.setInt(7, partida.getIdUltimaPregunta());
                 return PreparedStatement.executeUpdate() > 0;
             }
         } catch (SQLException e) {
@@ -127,7 +128,7 @@ public class PartidaDAO extends Conexion {
      * @return partida actualizada.
      */
     public boolean actualizarPartida(PartidaModel partida) {
-        String sql = "UPDATE partidas SET puntuacion = ?, aciertos = ?, errores = ?, dificultad = ?, fecha = ? WHERE id = ?";
+        String sql = "UPDATE partidas SET puntuacion = ?, aciertos = ?, errores = ?, dificultad = ?, fecha = ?, id_ultima_pregunta=? WHERE id = ?";
         try {
             conectar();
             try (PreparedStatement PreparedStatement = getConnection().prepareStatement(sql)) {
@@ -136,7 +137,8 @@ public class PartidaDAO extends Conexion {
                 PreparedStatement.setInt(3, partida.getErrores());
                 PreparedStatement.setInt(4, partida.getDificultad());
                 PreparedStatement.setString(5, partida.getFecha().toString());
-                PreparedStatement.setInt(6, partida.getId());
+                PreparedStatement.setInt(6, partida.getIdUltimaPregunta());
+                PreparedStatement.setInt(7, partida.getId());
                 return PreparedStatement.executeUpdate() > 0;
             }
         } catch (SQLException e) {
@@ -186,7 +188,7 @@ public class PartidaDAO extends Conexion {
                         Duration duracion = Duration.between(fecha, LocalDateTime.now());
     
                         if (duracion.toHours() < 24) {
-                            return new PartidaModel(
+                            PartidaModel partida = new PartidaModel(
                                 cursor.getInt("id"),
                                 cursor.getInt("id_usuario"),
                                 cursor.getInt("puntuacion"),
@@ -195,6 +197,8 @@ public class PartidaDAO extends Conexion {
                                 cursor.getInt("dificultad"),
                                 fecha
                             );
+                            partida.setIdUltimaPregunta(cursor.getInt("id_ultima_pregunta")); // <- Aquí
+                            return partida;
                         }
                     }
                 }

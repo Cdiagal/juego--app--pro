@@ -5,19 +5,15 @@ import com.jfoenix.controls.JFXButton;
 import es.cdiagal.quiz.backend.controller.abstractas.AbstractController;
 import es.cdiagal.quiz.backend.model.entities.Bandera;
 import es.cdiagal.quiz.initApp.MainApplication;
-import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class InnitController extends AbstractController{
     @FXML protected AnchorPane innitAnchorPane;
@@ -32,9 +28,9 @@ public class InnitController extends AbstractController{
     @FXML
     public void initialize() {
         languageComboBox.getItems().addAll(
-            new Bandera("español", new Image("/images/sp.png")),
-            new Bandera("english", new Image("/images/uk.png")),
-            new Bandera("français", new Image("/images/fr.png"))
+            new Bandera("es", new Image("/images/sp.png")),
+            new Bandera("en", new Image("/images/uk.png")),
+            new Bandera("fr", new Image("/images/fr.png"))
         );
 
     // Mostrar solo banderas en el desplegable
@@ -114,9 +110,10 @@ public class InnitController extends AbstractController{
         try {
             Stage stage = (Stage) registerButton.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/fxml/register.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 451,600);
+            Scene scene = new Scene(fxmlLoader.load());
             stage.setTitle("Register");
             stage.setScene(scene);
+            stage.sizeToScene();
             stage.show();
             } catch (Exception e) {
                 System.out.println("Error al cargar la página.");

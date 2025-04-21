@@ -25,6 +25,10 @@ public class PartidaModel {
     private int errores;
     private int dificultad;
     private LocalDateTime fecha;
+    private int idUltimaPregunta;
+
+
+
 
     /**
      * Constructor vacio.
@@ -124,6 +128,13 @@ public class PartidaModel {
 
     public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
+    }
+    public int getIdUltimaPregunta() {
+        return this.idUltimaPregunta;
+    }
+
+    public void setIdUltimaPregunta(int idUltimaPregunta) {
+        this.idUltimaPregunta = idUltimaPregunta;
     }
     
     /**

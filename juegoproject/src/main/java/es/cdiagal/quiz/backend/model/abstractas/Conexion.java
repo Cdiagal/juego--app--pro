@@ -17,7 +17,7 @@ public abstract class Conexion{
     public Connection getConnection(){
         try {
             if(connection == null){
-                connection = DriverManager.getConnection("jdbc: sqlite:" + rutaArchivoBD);
+                connection = DriverManager.getConnection("jdbc:sqlite:" + rutaArchivoBD);
             }
         } catch (Exception e) {
             e.printStackTrace();

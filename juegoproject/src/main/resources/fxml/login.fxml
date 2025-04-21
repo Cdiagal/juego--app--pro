@@ -22,7 +22,7 @@
             </ImageView>
          </graphic>
          </JFXButton>
-      <PasswordField fx:id="userLoginTextfield" layoutX="105.0" layoutY="340.0" prefHeight="50.0" prefWidth="240.0" promptText="    Contraseña">
+      <PasswordField fx:id="userLoginPasswordfield" layoutX="105.0" layoutY="340.0" prefHeight="50.0" prefWidth="240.0" promptText="    Contraseña">
          <font>
             <Font size="16.0" />
          </font>
@@ -59,7 +59,7 @@
       </Label>
       <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="305.0" layoutY="265.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/icons8-user-48.png" />
+            <Image url="@../images/user.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="306.0" layoutY="345.0" pickOnBounds="true" preserveRatio="true">
@@ -93,7 +93,7 @@
             <Image url="@../images/signo-de-interrogación-100%20(1).png" />
          </image>
       </ImageView>
-      <JFXButton fx:id="acceptLoginButton" layoutX="125.0" layoutY="452.0" onAction="#onClicAcceptLogin" minHeight="30.0" minWidth="200.0" styleClass="acceptLoginButton" stylesheets="@../styles/styles.css" text="Aceptar" />
+      <JFXButton fx:id="acceptLoginButton" layoutX="125.0" layoutY="452.0" minHeight="30.0" minWidth="200.0" onAction="#onClicAcceptLogin" styleClass="acceptLoginButton" stylesheets="@../styles/styles.css" text="Aceptar" />
       <Text fx:id="loginTextAdvise" layoutX="125.0" layoutY="426.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="200.0">
          <font>
             <Font size="14.0" />

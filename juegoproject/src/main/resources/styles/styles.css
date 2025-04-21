@@ -10,7 +10,7 @@
     -fx-background-color:#fef3df;
 }
 
- /*boton de login*/
+/*boton de login*/
 
 .loginButton{
     -fx-text-fill:white;
@@ -108,6 +108,22 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.3, 0, 2);
 }
 
+.exitButton{
+    -fx-text-fill:white;
+    -fx-font-size: 16px;
+    -fx-font-weight: 900;
+    -fx-background-color: #ebb106;
+    -fx-border-color: grey;
+    -fx-border-radius: 10px;
+    -fx-background-radius:10px;
+    -fx-border-width: 2px;
+    -fx-alignment: center;
+    -fx-content-display: center;
+    -fx-padding: 5px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.3, 0, 2);
+}
+
 /*REGISTER WINDOW*/
 
 .registerAnchorPane{
@@ -132,8 +148,42 @@
     -fx-background-radius:15;
 }
 
+.registerUserButton{
+    -fx-border-radius: 15;
+    -fx-background-radius:15;
+    -fx-background-color: white;
+    -fx-border-color: #000000;
+    -fx-border-width: 2;
+    
+}
+
+.exitButton{
+    -fx-text-fill:white;
+    -fx-font-size: 16px;
+    -fx-font-weight: 900;
+    -fx-background-color: #663a99;
+    -fx-border-color: grey;
+    -fx-border-radius: 10px;
+    -fx-background-radius:10px;
+    -fx-border-width: 2px;
+    -fx-alignment: center;
+    -fx-content-display: center;
+    -fx-padding: 5px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.3, 0, 2);
+}
 
 
+
+/*USERDATA*/
+
+
+.profileImageView{
+    -fx-border-radius:100%;
+    -fx-background-radius:100%;
+    -fx-border-width:2;
+    -fx-border-color:#000000;
+}
 
 /**
 .loginLabel{

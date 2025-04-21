@@ -14,7 +14,7 @@ public class AbstractController extends Conexion{
 static final String PATH_DB =  "src/main/resources/database/quiz.db";
 
     private Properties propertiesLanguage;
-    private static String idiomaActual = "español";
+    private static String idiomaActual = "es";
     
     public AbstractController() {
         super(PATH_DB);

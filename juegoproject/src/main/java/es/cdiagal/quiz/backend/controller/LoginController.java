@@ -23,14 +23,17 @@ public class LoginController extends AbstractController{
     @FXML protected JFXButton backButton;
     @FXML protected Label loginLabel;
     @FXML protected TextField userLoginTextfield;
-    @FXML protected PasswordField loginPasswordfield;
+    @FXML protected PasswordField userLoginPasswordfield;
     @FXML protected JFXButton acceptLoginButton;
     @FXML protected Hyperlink recoveryLink;
     @FXML protected Text loginTextAdvise;
 
 
 
-    
+
+    public LoginController(){
+        super();
+    }
 
     /**
      * Funcion que abre la ventana userData despues de comprobar los datos.
@@ -103,7 +106,7 @@ public class LoginController extends AbstractController{
      */
     private UsuarioModel validarDatosLogin() {
         if (userLoginTextfield == null || userLoginTextfield.getText().isEmpty() ||
-             loginPasswordfield == null || loginPasswordfield.getText().isEmpty()) {
+        userLoginPasswordfield == null || userLoginPasswordfield.getText().isEmpty()) {
                 loginTextAdvise.setText(getPropertiesLanguage().getProperty("loginTextAdvise"));
             return null;
         }
@@ -114,12 +117,47 @@ public class LoginController extends AbstractController{
             return null;
         }
 
-        if (!usuarioLogin.getPassword().equals(loginPasswordfield.getText())) {
+        if (!usuarioLogin.getPassword().equals(userLoginPasswordfield.getText())) {
             loginTextAdvise.setText(getPropertiesLanguage().getProperty("loginTextAdvise_errorPassword"));
             return null;
         }
 
         loginTextAdvise.setText("¡Usuario validado correctamente!");
         return usuarioLogin;
+    }
+
+
+    /**
+     * Metodo que inicializa el cambio de idioma en el ComboBox.
+     */
+    @FXML
+    public void initialize(){
+        if(getPropertiesLanguage()==null){
+            setPropertiesLanguage(loadLanguage("language", getIdiomaActual()));
+        }
+        changeLanguaje();
+    }
+
+    
+    /**
+     * Funcion que cambia el idioma de las etiquetas y objetos de la ventana
+     */
+    @FXML
+    public void changeLanguaje() {
+        String language = AbstractController.getIdiomaActual();
+
+        if(getPropertiesLanguage() == null){
+            setPropertiesLanguage(loadLanguage("language", language));
+        }
+        if(getPropertiesLanguage() != null){
+
+        loginLabel.setText(getPropertiesLanguage().getProperty("loginLabel"));
+        userLoginTextfield.setPromptText(getPropertiesLanguage().getProperty("userLoginTextfieldPrompText"));
+        userLoginPasswordfield.setPromptText(getPropertiesLanguage().getProperty("userLoginPasswordfieldPrompText"));
+        loginTextAdvise.setText(getPropertiesLanguage().getProperty("loginTextAdvise_errorUser"));
+        loginTextAdvise.setText(getPropertiesLanguage().getProperty("loginTextAdvise_errorPassword"));
+        acceptLoginButton.setText(getPropertiesLanguage().getProperty("acceptLoginButton"));
+        recoveryLink.setText(getPropertiesLanguage().getProperty("recoveryLink"));
+        }
     }
 }

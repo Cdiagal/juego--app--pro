@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane minHeight="700.0" minWidth="450.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.cdiagal.quiz.backend.controller.UserDataController">
+    <JFXButton fx:id="backButton" contentDisplay="CENTER" layoutX="20.0" layoutY="28.0" onAction="#onClickBackButton" prefHeight="38.0" prefWidth="38.0" text=" " textAlignment="CENTER">
+        <graphic>
+           <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
+              <image>
+               <Image url="@/images/adelante.png" />
+              </image>
+           </ImageView>
+        </graphic>
+        </JFXButton>
+    <VBox alignment="CENTER" layoutX="20.0" layoutY="41.0" prefHeight="559.0" prefWidth="410.0" spacing="15.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="41.0">
+      <Pane prefHeight="104.0" prefWidth="330.0">
+         <children>
+            <JFXButton fx:id="playButton" alignment="CENTER" layoutX="311.0" layoutY="40.0" onAction="#onClickPlay" text="Jugar" textAlignment="CENTER" wrapText="true" />
+         </children>
+      </Pane>
+        
+        <Label fx:id="userWellcomeLabel" style="-fx-font-size: 20px; -fx-font-weight: bold;" text="" />
+
+    <ImageView fx:id="profileImageView" fitHeight="150" fitWidth="150" preserveRatio="true" />
+      <JFXButton fx:id="changeImageButton" minHeight="30.0" minWidth="100.0" onAction="#onClicChangeImage" text="Cambiar imagen" />
+
+        <Label fx:id="nicknameLabel" text="Alias: " />
+        <Label fx:id="emailUserDataLabel" text="Email: " />
+        <Label fx:id="levelUserDataLabel" text="Nivel: " />
+        <Label fx:id="rateUserDataLabel" text="Racha: " />
+        <Label fx:id="pxUserDataLabel" text="Puntos: " />
+      <JFXButton fx:id="logoutButton" onAction="#onClicLogout" text="Cerrar sesión" />
+
+    </VBox>
+</AnchorPane>

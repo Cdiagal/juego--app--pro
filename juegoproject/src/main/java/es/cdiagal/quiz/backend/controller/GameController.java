@@ -10,6 +10,8 @@ import es.cdiagal.quiz.backend.model.entities.PartidaModel;
 import es.cdiagal.quiz.backend.model.entities.UsuarioModel;
 import es.cdiagal.quiz.backend.model.utils.service.PartidaServiceModel;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
@@ -20,11 +22,13 @@ public class GameController extends AbstractController {
     private PartidaModel partida;
     private PartidaServiceModel partidaService;
     private UsuarioModel usuario;
+    private int idUltimaPreguntaActual;
+
 
 
     @FXML
     private AnchorPane rootPane;
-
+    
 
     // Se ejecuta al iniciar el controlador o escena
     public void iniciarJuego(UsuarioModel usuario) {
@@ -54,15 +58,7 @@ public class GameController extends AbstractController {
         }
     }
 
-    /**@FXML
-    private void salirDelJuego() {
-        finalizarPartida();
-        
-        Window rootPane;
-        Stage stage = (Stage) rootPane.getScene().getWindow();
-        stage.close();
-    }
-    */
+
 
     private void crearPartidaNueva() {
         this.partida = new PartidaModel(
@@ -75,8 +71,10 @@ public class GameController extends AbstractController {
         iniciarLogicaJuego();
     }
 
+    /**
+     * Metodo que carga el estado de una partida.
+     */
     private void continuarPartida() {
-        // Aquí puedes cargar el estado si guardaste más datos (por ejemplo, pregunta actual)
         iniciarLogicaJuego();
     }
 
@@ -98,11 +96,43 @@ public class GameController extends AbstractController {
             }
             System.out.println("Partida descartada (menos de 1 minuto).");
         } else {
+            partida.setIdUltimaPregunta(idUltimaPreguntaActual);
             partida.setFecha(ahora); 
             partidaService.actualizarPartida(partida);
             System.out.println("Partida guardada correctamente.");
         }
     }
-    
+
+    /**
+     * Metodo que sale del juego y vuelve a la pantalla UserData.
+     */
+    @FXML
+    private void salirDelJuego() {
+        finalizarPartida();
+        try {
+        Stage stage = (Stage) rootPane.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/userData.fxml"));
+        Scene scene = new Scene(loader.load(), 450, 600);
+
+        UserDataController userDataController = loader.getController();
+        userDataController.setUsuario(usuario);
+        userDataController.usuarioData();
+
+        stage.setTitle("Datos del Usuario");
+        stage.setScene(scene);
+        stage.sizeToScene();
+        stage.show();
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Partida finalizada");
+        alert.setHeaderText(null);
+        alert.setContentText("¡Gracias por jugar!");
+        alert.showAndWait();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
 
