@@ -1,6 +1,8 @@
 package es.cdiagal.quiz.backend.controller;
 
+import es.cdiagal.quiz.backend.controller.abstractas.AbstractController;
 import es.cdiagal.quiz.backend.model.entities.PreguntaModel;
+import es.cdiagal.quiz.backend.model.entities.UsuarioModel;
 import es.cdiagal.quiz.backend.model.utils.service.PreguntaServiceModel;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -12,29 +14,39 @@ import javafx.util.Duration;
 
 import java.util.List;
 
-public class QuestionGameController {
-
-    @FXML private Label questionLabel;
-    @FXML private Label optionLabel1, optionLabel2, optionLabel3, optionLabel4;
-    @FXML private ProgressBar timerBar;
-    @FXML private Label feedbackLabel;
-
-    @FXML private Pane optionPane1, optionPane2, optionPane3, optionPane4;
-
+public class QuestionGameController extends AbstractController {
     private List<PreguntaModel> preguntas;
     private int indexPregunta = 0;
     private Timeline timeline;
     private final int tiempoTotal = 10; // segundos
     private int tiempoRestante;
     private PreguntaModel preguntaActual;
+    private UsuarioModel usuario;
+
+    public void setUsuario(UsuarioModel usuario) {
+        this.usuario = usuario;
+    }
+
+    @FXML private Label questionLabel;
+    @FXML private Label optionLabel1, optionLabel2, optionLabel3, optionLabel4;
+    @FXML private ProgressBar timerBar;
+    @FXML private Label feedbackLabel;
+    @FXML private Pane optionPane1, optionPane2, optionPane3, optionPane4;
+
+
 
     private final PreguntaServiceModel preguntaService = new PreguntaServiceModel("src/main/resources/database/quiz.db");
 
     @FXML
     public void initialize() {
-        preguntas = preguntaService.obtenerPreguntasAleatorias(10);
+    if (usuario != null) {
+        preguntas = preguntaService.obtenerPreguntasParaUsuario(usuario, 10);
         mostrarPregunta();
+    } else {
+        System.out.println("Usuario no establecido aún.");
     }
+}
+
 
     private void mostrarPregunta() {
         if (indexPregunta >= preguntas.size()) {
@@ -44,7 +56,7 @@ public class QuestionGameController {
         }
 
         preguntaActual = preguntas.get(indexPregunta);
-        questionLabel.setText(preguntaActual.getPregunta());
+        questionLabel.setText(preguntaActual.getEnunciado());
         List<String> opciones = preguntaActual.getOpcionesMezcladas();
 
         optionLabel1.setText(opciones.get(0));
@@ -84,12 +96,15 @@ public class QuestionGameController {
     private void comprobarRespuesta(String respuestaUsuario, Pane paneSeleccionado) {
         detenerTemporizador();
 
-        if (preguntaActual.getRespuesta().equalsIgnoreCase(respuestaUsuario)) {
+        String respuestaCorrecta = preguntaActual.getRespuestaCorrecta();
+        String respuestaUsuarioLimpia = respuestaUsuario.substring(0, 1); // Extrae la letra A, B, C o D
+
+        if (respuestaCorrecta.equalsIgnoreCase(respuestaUsuarioLimpia)) {
             feedbackLabel.setText("¡Correcto!");
             feedbackLabel.setStyle("-fx-text-fill: green;");
             paneSeleccionado.setStyle("-fx-background-color: #A3D9A5;");
         } else {
-            feedbackLabel.setText("Incorrecto. La correcta era: " + preguntaActual.getRespuesta());
+            feedbackLabel.setText("Incorrecto. La correcta era: " + respuestaCorrecta);
             feedbackLabel.setStyle("-fx-text-fill: red;");
             paneSeleccionado.setStyle("-fx-background-color: #F4A7A7;");
         }
@@ -113,23 +128,19 @@ public class QuestionGameController {
         optionPane4.setStyle(estiloOriginal);
     }
 
-    @FXML
-    private void handleOption1() {
+    @FXML private void handleOption1() {
         comprobarRespuesta(optionLabel1.getText(), optionPane1);
     }
 
-    @FXML
-    private void handleOption2() {
+    @FXML private void handleOption2() {
         comprobarRespuesta(optionLabel2.getText(), optionPane2);
     }
 
-    @FXML
-    private void handleOption3() {
+    @FXML private void handleOption3() {
         comprobarRespuesta(optionLabel3.getText(), optionPane3);
     }
 
-    @FXML
-    private void handleOption4() {
+    @FXML private void handleOption4() {
         comprobarRespuesta(optionLabel4.getText(), optionPane4);
     }
 }

@@ -1,6 +1,13 @@
 
 package es.cdiagal.quiz.backend.model.entities;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+
+
 
 
 /**
@@ -128,7 +135,26 @@ public class PreguntaModel {
     }
     
     
+    /**
+     * Devuelve una lista de opciones mezcladas, cada una con su letra identificadora.
+     * @return Lista de opciones ("A. Opción A", etc.) mezcladas.
+     */
+    public List<String> getOpcionesMezcladas() {
+        Map<String, String> mapa = new LinkedHashMap<>();
+        mapa.put("A", opcionA);
+        mapa.put("B", opcionB);
+        mapa.put("C", opcionC);
+        mapa.put("D", opcionD);
 
+        List<Map.Entry<String, String>> lista = new ArrayList<>(mapa.entrySet());
+        Collections.shuffle(lista);
+
+        List<String> opcionesMezcladas = new ArrayList<>();
+        for (Map.Entry<String, String> entrada : lista) {
+            opcionesMezcladas.add(entrada.getKey() + ". " + entrada.getValue());
+        }
+        return opcionesMezcladas;
+    }
     /**
      * Metodos equals() y hashCode().
      */

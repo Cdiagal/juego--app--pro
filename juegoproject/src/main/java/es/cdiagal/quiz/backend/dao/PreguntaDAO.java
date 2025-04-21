@@ -71,4 +71,37 @@ public class PreguntaDAO extends Conexion {
         }
     }
     
+    public List<PreguntaModel> obtenerTodasLasPreguntas() {
+        List<PreguntaModel> lista = new ArrayList<>();
+        String sql = "SELECT * FROM preguntas";
+    
+        try {
+            conectar();
+            try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
+                 ResultSet cursor = preparedStatement.executeQuery()) {
+    
+                while (cursor.next()) {
+                    PreguntaModel p = new PreguntaModel(
+                        cursor.getInt("id"),
+                        cursor.getString("enunciado"),
+                        cursor.getString("opcionA"),
+                        cursor.getString("opcionB"),
+                        cursor.getString("opcionC"),
+                        cursor.getString("opcionD"),
+                        cursor.getString("respuestaCorrecta"),
+                        cursor.getInt("dificultad")
+                    );
+                    lista.add(p);
+                }
+    
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            cerrar();
+        }
+    
+        return lista;
+    }
+    
 }

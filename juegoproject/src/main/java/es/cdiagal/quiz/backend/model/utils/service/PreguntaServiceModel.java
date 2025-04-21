@@ -1,6 +1,7 @@
 
 package es.cdiagal.quiz.backend.model.utils.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import es.cdiagal.quiz.backend.dao.PreguntaDAO;
@@ -27,4 +28,16 @@ public class PreguntaServiceModel {
         else if (puntos < 300) return 3;
         else return 4;
     }
+
+    public List<PreguntaModel> obtenerPreguntasAleatorias(int cantidad) {
+    List<PreguntaModel> todas = obtenerTodas();
+        Collections.shuffle(todas);
+        return todas.subList(0, Math.min(cantidad, todas.size()));
+    }
+
+    public List<PreguntaModel> obtenerTodas() {
+        return preguntaDAO.obtenerTodasLasPreguntas(); // Asegúrate de que este método existe en el DAO
+    }
+    
+
 }
