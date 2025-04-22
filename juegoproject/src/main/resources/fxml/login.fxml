@@ -22,21 +22,18 @@
             </ImageView>
          </graphic>
          </JFXButton>
-      <PasswordField fx:id="userLoginPasswordfield" layoutX="105.0" layoutY="340.0" prefHeight="50.0" prefWidth="240.0" promptText="    Contraseña">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </PasswordField>
       <TextField fx:id="userLoginTextfield" layoutX="105.0" layoutY="260.0" prefHeight="50.0" prefWidth="240.0" promptText="    Usuario">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="135.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/icons8-cerebro-100%20(1).png" />
-         </image>
-      </ImageView>
+      <PasswordField fx:id="userLoginPasswordfield" layoutX="105.0" layoutY="340.0" prefHeight="50.0" prefWidth="240.0" promptText="    Contraseña">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </PasswordField>
+      <JFXButton fx:id="acceptLoginButton" layoutX="125.0" layoutY="452.0" minHeight="30.0" minWidth="200.0" onAction="#onClicAcceptLogin" styleClass="acceptLoginButton" stylesheets="@../styles/styles.css" text="Aceptar" />
+      <Hyperlink fx:id="recoveryLink" layoutX="154.0" layoutY="505.0" onAction="#onClicRecoverPassword" text="¿Olvidaste la contraseña?" />
       <ImageView fitHeight="178.0" fitWidth="188.0" layoutX="237.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" rotate="1.0">
          <image>
             <Image url="@../images/signo-de-interrogación-rojo.png" />
@@ -67,7 +64,6 @@
             <Image url="@../images/candado.png" />
          </image>
       </ImageView>
-      <Hyperlink fx:id="recoveryLink" layoutX="154.0" layoutY="505.0" onAction="#onClicRecoverPassword" text="¿Olvidaste la contraseña?" />
       <ImageView fitHeight="91.0" fitWidth="95.0" layoutX="261.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true" rotate="17.7">
          <image>
             <Image url="@../images/signo-de-interrogación-100.png" />
@@ -93,7 +89,6 @@
             <Image url="@../images/signo-de-interrogación-100%20(1).png" />
          </image>
       </ImageView>
-      <JFXButton fx:id="acceptLoginButton" layoutX="125.0" layoutY="452.0" minHeight="30.0" minWidth="200.0" onAction="#onClicAcceptLogin" styleClass="acceptLoginButton" stylesheets="@../styles/styles.css" text="Aceptar" />
       <Text fx:id="loginTextAdvise" layoutX="125.0" layoutY="426.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="200.0">
          <font>
             <Font size="14.0" />

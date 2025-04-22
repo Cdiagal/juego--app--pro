@@ -15,6 +15,8 @@ import javafx.util.Duration;
 import java.util.List;
 
 public class QuestionGameController extends AbstractController {
+    private final PreguntaServiceModel preguntaService;
+
     private List<PreguntaModel> preguntas;
     private int indexPregunta = 0;
     private Timeline timeline;
@@ -29,16 +31,36 @@ public class QuestionGameController extends AbstractController {
     @FXML private Label feedbackLabel;
     @FXML private Pane optionPane1, optionPane2, optionPane3, optionPane4;
 
+    /**
+     * Inyecta el servicio de preguntas usando la ruta centralizada del archivo de base de datos.
+     */
+    public QuestionGameController() {
+        super();
+        this.preguntaService = new PreguntaServiceModel(getRutaArchivoBD());
+    }
 
-
-    private final PreguntaServiceModel preguntaService = new PreguntaServiceModel("src/main/resources/database/quiz.db");
-
-    public void setUsuario(UsuarioModel usuario) {
-        this.usuario = usuario;
+    /**
+     * Método para iniciar el juego una vez se ha establecido el usuario.
+     * Obtiene las preguntas y muestra la primera.
+     */
+    public void iniciarJuego() {
         preguntas = preguntaService.obtenerPreguntasParaUsuario(usuario, 10);
+        indexPregunta = 0;
         mostrarPregunta();
     }
 
+    /**
+     * Establece el usuario que va a jugar.
+     * @param usuario el usuario actual
+     */
+    public void setUsuario(UsuarioModel usuario) {
+        this.usuario = usuario;
+    }
+
+    /**
+     * Muestra la pregunta actual en la interfaz.
+     * Si no quedan preguntas, termina el cuestionario.
+     */
     private void mostrarPregunta() {
         if (indexPregunta >= preguntas.size()) {
             feedbackLabel.setText("¡Has completado el cuestionario!");
@@ -50,6 +72,7 @@ public class QuestionGameController extends AbstractController {
         questionLabel.setText(preguntaActual.getEnunciado());
         List<String> opciones = preguntaActual.getOpcionesMezcladas();
 
+        // Asigna las opciones a los labels
         optionLabel1.setText(opciones.get(0));
         optionLabel2.setText(opciones.get(1));
         optionLabel3.setText(opciones.get(2));
@@ -60,6 +83,10 @@ public class QuestionGameController extends AbstractController {
         iniciarTemporizador();
     }
 
+    /**
+     * Inicia el temporizador de cuenta regresiva para la pregunta actual.
+     * Si se agota el tiempo, avanza a la siguiente pregunta automáticamente.
+     */
     private void iniciarTemporizador() {
         detenerTemporizador();
         tiempoRestante = tiempoTotal;
@@ -78,12 +105,21 @@ public class QuestionGameController extends AbstractController {
         timeline.play();
     }
 
+    /**
+     * Detiene el temporizador activo si lo hay.
+     */
     private void detenerTemporizador() {
         if (timeline != null) {
             timeline.stop();
         }
     }
 
+    /**
+     * Comprueba si la respuesta seleccionada es correcta.
+     * Muestra feedback visual y textual según el resultado.
+     * @param respuestaUsuario Texto de la opción seleccionada (p. ej., "A. París")
+     * @param paneSeleccionado Pane asociado a la opción clicada (para marcar color)
+     */
     private void comprobarRespuesta(String respuestaUsuario, Pane paneSeleccionado) {
         detenerTemporizador();
 
@@ -105,11 +141,18 @@ public class QuestionGameController extends AbstractController {
         wait.play();
     }
 
+    /**
+     * Avanza a la siguiente pregunta del cuestionario.
+     */
     private void siguientePregunta() {
         indexPregunta++;
         mostrarPregunta();
     }
 
+    /**
+     * Restaura el estilo original de los paneles de opción.
+     * Se usa antes de mostrar una nueva pregunta.
+     */
     private void resetEstilosOpciones() {
         String estiloOriginal = "-fx-background-color: white; -fx-border-color: #CCCCCC; -fx-border-radius: 5;";
         optionPane1.setStyle(estiloOriginal);
@@ -118,19 +161,23 @@ public class QuestionGameController extends AbstractController {
         optionPane4.setStyle(estiloOriginal);
     }
 
-    @FXML private void handleOption1() {
+    /**
+     * Métodos vinculados al clic de cada opción.
+     * Llaman a comprobarRespuesta con el texto y pane correspondiente.
+     */
+    @FXML private void onClickOption1() {
         comprobarRespuesta(optionLabel1.getText(), optionPane1);
     }
 
-    @FXML private void handleOption2() {
+    @FXML private void onClickOption2() {
         comprobarRespuesta(optionLabel2.getText(), optionPane2);
     }
 
-    @FXML private void handleOption3() {
+    @FXML private void onClickOption3() {
         comprobarRespuesta(optionLabel3.getText(), optionPane3);
     }
 
-    @FXML private void handleOption4() {
+    @FXML private void onClickOption4() {
         comprobarRespuesta(optionLabel4.getText(), optionPane4);
     }
 }

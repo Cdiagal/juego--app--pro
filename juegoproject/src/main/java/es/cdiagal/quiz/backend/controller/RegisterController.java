@@ -20,7 +20,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+/**
+ * Clase que gestiona el registro de un usuario.
+ * @author cdiagal
+ * @version 1.0.0
+ */
 public class RegisterController  extends AbstractController{
+    private final UsuarioDAO usuarioDAO;
+
     @FXML protected JFXButton backButton;
     @FXML protected Label registerBigLabel;
     @FXML protected Label registerNicknameLabel;
@@ -39,6 +46,7 @@ public class RegisterController  extends AbstractController{
 
     public RegisterController(){
         super();
+        this.usuarioDAO = new UsuarioDAO(getRutaArchivoBD());
     }
     /**
      * Metodo que aniade un nuevo usuario a la BBDD en el caso de que las validaciones sean correctas, creando una alerta emergente que avisa
@@ -56,20 +64,10 @@ public class RegisterController  extends AbstractController{
         nuevoUsuario.setPuntos(0);
         nuevoUsuario.setNivel(1);
 
-        UsuarioDAO dao = new UsuarioDAO("src/main/resources/database/quiz.db");
-        boolean insertado = dao.insertar(nuevoUsuario);
+        boolean insertado = usuarioDAO.insertar(nuevoUsuario);
 
         if (insertado) {
-            // MOSTRAR ALERTA
-            Image image = new Image("/images/brain-like.png");
-            ImageView imageView = new ImageView(image);
-            imageView.setFitWidth(60);
-            imageView.setFitHeight(60);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("¡Registro exitoso!");
-            alert.setHeaderText(null);
-            alert.setContentText("El usuario se ha registrado correctamente.");
-            alert.showAndWait();
+            mostrarAlertaConIcono("¡Registro exitoso!", "El ususario ha sido registrado correctamente", "/images/brain-like.png");
 
             // REDIRIGIR A LOGIN
             try {
@@ -86,16 +84,7 @@ public class RegisterController  extends AbstractController{
             }
 
         } else {
-            Image image = new Image("/images/brain-dislike.png");
-            ImageView imageView = new ImageView(image);
-            imageView.setFitWidth(60);
-            imageView.setFitHeight(60);
-
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("¡Registro fallido!");
-            alert.setContentText("No se pudo registrar el usuario.");
-            alert.showAndWait();
+            mostrarAlertaConIcono("¡Registro fallido!", "El usuario no se ha podido registrar", "/images/brain-dislike.png");
         }
     }
     }
@@ -193,6 +182,21 @@ public class RegisterController  extends AbstractController{
         return matcher.matches();
     }
 
+    /**
+     * Metodo que retorna una ventana tipo Alert con un icono
+     */
+    private void mostrarAlertaConIcono(String titulo, String mensaje, String iconoPath) {
+        Image image = new Image(iconoPath);
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(60);
+        imageView.setFitHeight(60);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.setGraphic(imageView);
+        alert.showAndWait();
+    }
 
     /**
      * Metodo que inicializa el cambio de idioma en el ComboBox.
@@ -202,7 +206,7 @@ public class RegisterController  extends AbstractController{
         if(getPropertiesLanguage()==null){
             setPropertiesLanguage(loadLanguage("language", getIdiomaActual()));
         }
-        changeLanguaje();
+        changeLanguage();
     }
 
     
@@ -210,7 +214,7 @@ public class RegisterController  extends AbstractController{
      * Funcion que cambia el idioma de las etiquetas y objetos de la ventana
      */
     @FXML
-    public void changeLanguaje() {
+    public void changeLanguage() {
         String language = AbstractController.getIdiomaActual();
 
         if(getPropertiesLanguage() == null){

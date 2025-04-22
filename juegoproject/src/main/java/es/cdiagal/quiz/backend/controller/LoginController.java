@@ -17,8 +17,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class LoginController extends AbstractController{
-
-    private final UsuarioDAO usuarioDAO = new UsuarioDAO(getRutaArchivoBD());
+    
+    private final UsuarioDAO usuarioDAO;
 
     @FXML protected JFXButton backButton;
     @FXML protected Label loginLabel;
@@ -30,9 +30,47 @@ public class LoginController extends AbstractController{
 
 
 
-
+    /**
+     * Inyección de dependencia del DAO usando la ruta unificada de la BD.
+     */
     public LoginController(){
         super();
+        this.usuarioDAO = new UsuarioDAO(getRutaArchivoBD());
+    }
+
+    /**
+     * Metodo que inicializa el cambio de idioma en el ComboBox.
+     */
+    @FXML
+    public void initialize(){
+        if(getPropertiesLanguage()==null){
+            setPropertiesLanguage(loadLanguage("language", getIdiomaActual()));
+        }
+        userLoginTextfield.requestFocus();
+        changeLanguage();
+    }
+
+    
+    /**
+     * Funcion que cambia el idioma de las etiquetas y objetos de la ventana
+     */
+    @FXML
+    public void changeLanguage() {
+        String language = AbstractController.getIdiomaActual();
+
+        if(getPropertiesLanguage() == null){
+            setPropertiesLanguage(loadLanguage("language", language));
+        }
+        if(getPropertiesLanguage() != null){
+
+        loginLabel.setText(getPropertiesLanguage().getProperty("loginLabel"));
+        userLoginTextfield.setPromptText(getPropertiesLanguage().getProperty("userLoginTextfieldPrompText"));
+        userLoginPasswordfield.setPromptText(getPropertiesLanguage().getProperty("userLoginPasswordfieldPrompText"));
+        loginTextAdvise.setText(getPropertiesLanguage().getProperty("loginTextAdvise_errorUser"));
+        loginTextAdvise.setText(getPropertiesLanguage().getProperty("loginTextAdvise_errorPassword"));
+        acceptLoginButton.setText(getPropertiesLanguage().getProperty("acceptLoginButton"));
+        recoveryLink.setText(getPropertiesLanguage().getProperty("recoveryLink"));
+        }
     }
 
     /**
@@ -43,14 +81,15 @@ public class LoginController extends AbstractController{
         UsuarioModel usuarioValidado = validarDatosLogin();
         if (usuarioValidado != null) {
             try {
-                Stage stage = (Stage) acceptLoginButton.getScene().getWindow();
                 FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/fxml/userData.fxml"));
                 Scene scene = new Scene(fxmlLoader.load(), 451,600);
 
                 UserDataController userDataController = fxmlLoader.getController();
                 userDataController.setUsuario(usuarioValidado);
+                userDataController.usuarioData();
 
-                stage.setTitle("Información");
+                Stage stage = (Stage) acceptLoginButton.getScene().getWindow();
+                stage.setTitle(getPropertiesLanguage().getProperty("userDataTitle"));
                 stage.setScene(scene);
                 stage.sizeToScene();
                 stage.show();
@@ -70,7 +109,7 @@ public class LoginController extends AbstractController{
             Stage stage = (Stage) recoveryLink.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/fxml/recoverPassword.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 451,600);
-            stage.setTitle("Recuperar contraseña");
+            stage.setTitle(getPropertiesLanguage().getProperty("recoverPasswordTitle"));
             stage.setScene(scene);
             stage.sizeToScene();
             stage.show();
@@ -105,59 +144,28 @@ public class LoginController extends AbstractController{
      * @return nuevo login.
      */
     private UsuarioModel validarDatosLogin() {
+        // Campos vacios
         if (userLoginTextfield == null || userLoginTextfield.getText().isEmpty() ||
         userLoginPasswordfield == null || userLoginPasswordfield.getText().isEmpty()) {
                 loginTextAdvise.setText(getPropertiesLanguage().getProperty("loginTextAdvise"));
             return null;
         }
-
+        // Usuario inexistente
         UsuarioModel usuarioLogin = usuarioDAO.buscarPorNick(userLoginTextfield.getText());
         if (usuarioLogin == null) {
             loginTextAdvise.setText(getPropertiesLanguage().getProperty("loginTextAdvise_errorUser"));
             return null;
         }
-
+        // Contrasenia incorrecta
         if (!usuarioLogin.getPassword().equals(userLoginPasswordfield.getText())) {
             loginTextAdvise.setText(getPropertiesLanguage().getProperty("loginTextAdvise_errorPassword"));
             return null;
         }
-
+        // validacion exitosa
         loginTextAdvise.setText("¡Usuario validado correctamente!");
         return usuarioLogin;
     }
 
 
-    /**
-     * Metodo que inicializa el cambio de idioma en el ComboBox.
-     */
-    @FXML
-    public void initialize(){
-        if(getPropertiesLanguage()==null){
-            setPropertiesLanguage(loadLanguage("language", getIdiomaActual()));
-        }
-        changeLanguaje();
-    }
-
     
-    /**
-     * Funcion que cambia el idioma de las etiquetas y objetos de la ventana
-     */
-    @FXML
-    public void changeLanguaje() {
-        String language = AbstractController.getIdiomaActual();
-
-        if(getPropertiesLanguage() == null){
-            setPropertiesLanguage(loadLanguage("language", language));
-        }
-        if(getPropertiesLanguage() != null){
-
-        loginLabel.setText(getPropertiesLanguage().getProperty("loginLabel"));
-        userLoginTextfield.setPromptText(getPropertiesLanguage().getProperty("userLoginTextfieldPrompText"));
-        userLoginPasswordfield.setPromptText(getPropertiesLanguage().getProperty("userLoginPasswordfieldPrompText"));
-        loginTextAdvise.setText(getPropertiesLanguage().getProperty("loginTextAdvise_errorUser"));
-        loginTextAdvise.setText(getPropertiesLanguage().getProperty("loginTextAdvise_errorPassword"));
-        acceptLoginButton.setText(getPropertiesLanguage().getProperty("acceptLoginButton"));
-        recoveryLink.setText(getPropertiesLanguage().getProperty("recoveryLink"));
-        }
-    }
 }

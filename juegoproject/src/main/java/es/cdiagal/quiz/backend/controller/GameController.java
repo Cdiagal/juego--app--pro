@@ -3,63 +3,81 @@ package es.cdiagal.quiz.backend.controller;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-
-
 import es.cdiagal.quiz.backend.controller.abstractas.AbstractController;
 import es.cdiagal.quiz.backend.model.entities.PartidaModel;
 import es.cdiagal.quiz.backend.model.entities.UsuarioModel;
 import es.cdiagal.quiz.backend.model.utils.service.PartidaServiceModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.Window;
+
+/**
+ * Controller de partida que gestiona la lógica de inicio, continuación y finalización de una partida.
+ * @author cdiagal
+ * @version 1.0.0
+ */
 
 public class GameController extends AbstractController {
+    private final PartidaServiceModel partidaService;
     private PartidaModel partida;
-    private PartidaServiceModel partidaService;
     private UsuarioModel usuario;
     private int idUltimaPreguntaActual;
 
+    @FXML private AnchorPane rootPane;
 
+    /**
+     * Constructor: inyecta la ruta de BD al servicio.
+     */
+    public GameController() {
+        super(); // PATH_DB establecido en AbstractController
+        this.partidaService = new PartidaServiceModel(getRutaArchivoBD());
+    }
 
-    @FXML
-    private AnchorPane rootPane;
-    
-
-    // Se ejecuta al iniciar el controlador o escena
+    /**
+     * Inicia el flujo de la partida para el usuario.
+     */
     public void iniciarJuego(UsuarioModel usuario) {
         this.usuario = usuario;
-        this.partidaService = new PartidaServiceModel(getRutaArchivoBD());
 
         PartidaModel partidaActiva = partidaService.obtenerPartidaActiva(usuario.getId());
-
         if (partidaActiva != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Partida activa");
             alert.setHeaderText("Tienes una partida activa.");
             alert.setContentText("¿Quieres continuarla o empezar una nueva?");
-            ButtonType btnContinuar = new ButtonType("Continuar");
-            ButtonType btnNueva = new ButtonType("Nueva");
-            alert.getButtonTypes().setAll(btnContinuar, btnNueva);
+
+            ButtonType buttonContinuar = new ButtonType("Continuar");
+            ButtonType buttonNueva = new ButtonType("Nueva");
+            ButtonType buttonCerrar = new ButtonType("Cerrar");
+            alert.getButtonTypes().setAll(buttonContinuar, buttonNueva, buttonCerrar);
 
             Optional<ButtonType> resultado = alert.showAndWait();
-            if (resultado.isPresent() && resultado.get() == btnContinuar) {
-                this.partida = partidaActiva;
-                continuarPartida();
+            if (resultado.isPresent()) {
+                ButtonType elegido = resultado.get();
+                if (elegido == buttonContinuar) {
+                    
+                    this.partida = partidaActiva;
+                    continuarPartida();
+                }
+                else if (elegido == buttonNueva) {
+                    
+                    crearPartidaNueva();
+                }
+                
             } else {
-                crearPartidaNueva();
+                
             }
-        } else {
-            crearPartidaNueva();
-        }
+        }  
     }
 
-
-
+    /**
+     * Funcion que gestiona la creacion de una partida nueva.
+     */
     private void crearPartidaNueva() {
         this.partida = new PartidaModel(
             usuario.getId(),
@@ -72,67 +90,84 @@ public class GameController extends AbstractController {
     }
 
     /**
-     * Metodo que carga el estado de una partida.
+     * Continua una partida empezada.
      */
     private void continuarPartida() {
         iniciarLogicaJuego();
     }
 
+    /**
+     * Arranca la interfaz de juego (preguntas) cargando el FXML correspondiente.
+     */
     private void iniciarLogicaJuego() {
-        // Este método inicia el juego en sí:
-        // - Carga preguntas
-        // - Muestra la primera
-        // - Reinicia temporizador
-        // etc.
+        try {
+            Stage stage = (Stage) rootPane.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/questionGame.fxml"));
+            Parent root = loader.load();
+            // Pasa el usuario y comienza la lógica de preguntas
+            QuestionGameController controller = loader.getController();
+            controller.setUsuario(usuario);
+
+            Scene scene = new Scene(root);
+            stage.setTitle("Quiz");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo iniciar el juego.");
+        }
     }
 
     private void finalizarPartida() {
         LocalDateTime ahora = LocalDateTime.now();
         long duracionSegundos = java.time.Duration.between(partida.getFecha(), ahora).getSeconds();
-    
-        if (duracionSegundos < 60) {
-            if (partida.getId() != 0) {
-                partidaService.eliminarPartida(partida.getId());
-            }
+
+        if (duracionSegundos < 60 && partida.getId() != 0) {
+            partidaService.eliminarPartida(partida.getId());
             System.out.println("Partida descartada (menos de 1 minuto).");
         } else {
             partida.setIdUltimaPregunta(idUltimaPreguntaActual);
-            partida.setFecha(ahora); 
+            partida.setFecha(ahora);
             partidaService.actualizarPartida(partida);
             System.out.println("Partida guardada correctamente.");
         }
     }
 
     /**
-     * Metodo que sale del juego y vuelve a la pantalla UserData.
+     * Sale del juego, finaliza la partida y regresa a la vista de datos de usuario.
      */
     @FXML
     private void salirDelJuego() {
         finalizarPartida();
         try {
-        Stage stage = (Stage) rootPane.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/userData.fxml"));
-        Scene scene = new Scene(loader.load(), 450, 600);
+            Stage stage = (Stage) rootPane.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/userData.fxml"));
+            Parent root = loader.load();
 
-        UserDataController userDataController = loader.getController();
-        userDataController.setUsuario(usuario);
-        userDataController.usuarioData();
+            UserDataController userDataController = loader.getController();
+            userDataController.setUsuario(usuario);
+            userDataController.usuarioData();
 
-        stage.setTitle("Datos del Usuario");
-        stage.setScene(scene);
-        stage.sizeToScene();
-        stage.show();
+            stage.setTitle("Datos del usuario");
+            stage.setScene(new Scene(root));
+            stage.sizeToScene();
+            stage.show();
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Partida finalizada");
-        alert.setHeaderText(null);
-        alert.setContentText("¡Gracias por jugar!");
-        alert.showAndWait();
-
-
+            showAlert(Alert.AlertType.INFORMATION, "Partida finalizada", "¡Gracias por jugar!");
         } catch (Exception e) {
             e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo regresar a datos de usuario.");
         }
     }
-}
 
+    /**
+     * Método utilitario para mostrar alertas.
+     */
+    private void showAlert(Alert.AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+}

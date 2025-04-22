@@ -49,6 +49,42 @@ public class UsuarioDAO extends Conexion {
         return usuario;
     }
 
+    
+    /**
+     * Metodo que busca un usuario por su email en la BBDD.
+     * @param email del usuario.
+     * @return usuario buscado.
+     */
+    public UsuarioModel buscarPorEmail(String email) {
+        String sql = "SELECT * FROM usuarios WHERE email = ?";
+        UsuarioModel usuario = null;
+        try {
+            conectar();
+            try(PreparedStatement stmt = getConnection().prepareStatement(sql)) {
+                stmt.setString(1, email);
+                try(ResultSet cursor = stmt.executeQuery()){
+                    if (cursor.next()) {
+                        return new UsuarioModel(
+                            cursor.getInt("id"),
+                            cursor.getString("nickname"),
+                            cursor.getString("email"),
+                            cursor.getString("password"),
+                            cursor.getInt("racha"),
+                            cursor.getInt("puntos"),
+                            cursor.getInt("nivel")
+                        );
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            cerrar();
+        }
+        return usuario;
+    }
+
 
     /**
      * Metodo que inserta un nuevo usuario en la BBDD.
@@ -152,6 +188,34 @@ public class UsuarioDAO extends Conexion {
             cerrar();
         }
         
+    }
+
+    /**
+     * Metodo que actualiza la contrasenia antigua por la nueva al enviarse el correo.
+     * El usuario solicita via email una nueva contrasenia.
+     * @param email con la nueva contrasenia.
+     * @param nuevaPassword del usuario.
+     * @return nueva contrasenia.
+     */
+    public boolean actualizarPasswordPorEmail(String email, String nuevaPassword) {
+        String sql = "UPDATE usuarios SET password = ? WHERE email = ?";
+        boolean actualizada = false;
+    
+        try {
+            conectar();
+            try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
+                stmt.setString(1, nuevaPassword); // Aquí podrías aplicar hashing si lo deseas
+                stmt.setString(2, email);
+                int filas = stmt.executeUpdate();
+                actualizada = filas > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            cerrar();
+        }
+    
+        return actualizada;
     }
 
     /**

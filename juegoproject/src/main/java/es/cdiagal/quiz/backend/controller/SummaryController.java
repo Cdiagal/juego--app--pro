@@ -3,49 +3,79 @@ package es.cdiagal.quiz.backend.controller;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+import es.cdiagal.quiz.backend.controller.abstractas.AbstractController;
 import es.cdiagal.quiz.backend.model.entities.PartidaModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-
-public class SummaryController {
+/**
+ * Muestra el resumen de la partida tras finalizar.
+ * @author cdiagal
+ * @version 1.0.0
+ */
+public class SummaryController extends AbstractController {
 
     private PartidaModel partida;
 
-    @FXML private Label labelResumen;
-    @FXML private Label labelPuntos;
-    @FXML private Label labelAciertos;
-    @FXML private Label labelErrores;
-    @FXML private Label labelDificultad;
-    @FXML private Label labelDuracion;
+    @FXML private Label resumenLabel;
+    @FXML private Label puntosLabel;
+    @FXML private Label aciertosLabel;
+    @FXML private Label errorsLabel;
+    @FXML private Label dificultadLabel;
+    @FXML private Label duracionLabel;
 
+    /**
+     * Establece la partida finalizada y muestra sus datos.
+     * @param partida modelo de la partida jugada.
+     */
     public void setPartida(PartidaModel partida) {
         this.partida = partida;
         mostrarResumen();
     }
 
+    /**
+     * Muestra los resultados de la partida en pantalla.
+     */
     private void mostrarResumen() {
-        labelPuntos.setText("Puntuación: " + partida.getPuntuacion());
-        labelAciertos.setText("Aciertos: " + partida.getAciertos());
-        labelErrores.setText("Errores: " + partida.getErrores());
-        labelDificultad.setText("Dificultad: " + partida.getDificultad());
+        if (partida == null) return;
 
-        long minutos = Duration.between(partida.getFecha(), LocalDateTime.now()).toMinutes();
-        labelDuracion.setText("Duración: " + minutos + " minuto(s)");
+        puntosLabel.setText(getText("summary.points") + ": " + partida.getPuntuacion());
+        aciertosLabel.setText(getText("summary.correct") + ": " + partida.getAciertos());
+        errorsLabel.setText(getText("summary.wrong") + ": " + partida.getErrores());
+        dificultadLabel.setText(getText("summary.difficulty") + ": " + partida.getDificultad());
+
+        Duration duracion = Duration.between(partida.getFecha(), LocalDateTime.now());
+        long minutos = duracion.toMinutes();
+        long segundos = duracion.minusMinutes(minutos).getSeconds();
+        duracionLabel.setText(getText("summary.duration") + ": " + minutos + " min " + segundos + " seg");
     }
 
+    /**
+     * Cierra la ventana actual y permite comenzar nueva partida.
+     */
     @FXML
     private void nuevaPartida() {
-        Stage stage = (Stage) labelResumen.getScene().getWindow();
-        stage.close();
+        cerrarVentana();
     }
 
+    /**
+     * Cierra la aplicación o regresa al menú.
+     */
     @FXML
     private void salir() {
-        Stage stage = (Stage) labelResumen.getScene().getWindow();
+        cerrarVentana();
+    }
+
+    private void cerrarVentana() {
+        Stage stage = (Stage) resumenLabel.getScene().getWindow();
         stage.close();
     }
+
+    /**
+     * Método auxiliar para obtener textos desde el properties.
+     */
+    private String getText(String key) {
+        return getPropertiesLanguage() != null ? getPropertiesLanguage().getProperty(key, key) : key;
+    }
 }
-
-
