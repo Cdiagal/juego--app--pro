@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 
+import com.jfoenix.controls.JFXButton;
+
 import es.cdiagal.quiz.backend.controller.abstractas.AbstractController;
 import es.cdiagal.quiz.backend.dao.UsuarioDAO;
 import es.cdiagal.quiz.backend.model.entities.UsuarioModel;
@@ -30,23 +32,25 @@ public class UpdateUserDataController extends AbstractController {
     private UsuarioModel usuario;
     private byte[] imagenSeleccionada;
 
+    @FXML private Label registerPasswordLabel;
+    @FXML private Label registerNicknameLabel;
+    @FXML private Label registerEmailLabel;
     @FXML private TextField nicknameField;
     @FXML private TextField emailField;
     @FXML private PasswordField newPasswordField;
     @FXML private PasswordField repeatPasswordField;
     @FXML private ImageView profileImageView;
     @FXML private Label updateUserTextAdvise;
-    @FXML private Button deleteUserButton;
+    @FXML private JFXButton deleteUserButton;
+    @FXML private JFXButton backButton;
+    @FXML private JFXButton updateButton;
 
     public UpdateUserDataController() {
         super();
         this.usuarioDAO = new UsuarioDAO(getRutaArchivoBD());
     }
 
-    @FXML
-    public void initialize() {
-        aplicarClipCircular(profileImageView);
-    }
+    
 
     public void setUsuario(UsuarioModel usuario) {
         this.usuario = usuario;
@@ -97,7 +101,7 @@ public class UpdateUserDataController extends AbstractController {
     }
 
     @FXML
-    private void actualizarDatos() {
+    private void onClickUpdateUser() {
         String nuevoNickname = nicknameField.getText().trim();
         String nuevoEmail = emailField.getText().trim();
         String nuevaPass = newPasswordField.getText();
@@ -137,6 +141,43 @@ public class UpdateUserDataController extends AbstractController {
         }
     }
 
+
+    /**
+     * Funcion que lleva hacia la pantalla de Eliminar usuario.
+     */
+    @FXML
+    protected void onClickDeleteUser() {
+        try {
+            Stage stage = (Stage) deleteUserButton.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/fxml/deleteUser.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 450, 600);
+            stage.setTitle("Eliminar usuario");
+            stage.setScene(scene);
+            stage.sizeToScene();
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Funcion que lleva hacia la pantalla anterior desde la que se accede a Settings.
+     */
+    @FXML
+    protected void onClickBackButton() {
+        try {
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/fxml/userData.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 450, 600);
+            stage.setTitle("Iniciar sesión");
+            stage.setScene(scene);
+            stage.sizeToScene();
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void mostrarAlerta(String titulo, String mensaje) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titulo);
@@ -145,18 +186,34 @@ public class UpdateUserDataController extends AbstractController {
         alert.showAndWait();
     }
 
+
+
+
+    /**
+     * Metodo que inicializa el cambio de idioma en el ComboBox.
+     */
     @FXML
-    protected void onClickDeleteUser(){
-        try {
-            Stage stage = (Stage) deleteUserButton.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("deleteUser.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 500, 500);
-            stage.setTitle("Eliminar usuario");
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            updateUserTextAdvise.setText("Error al cargar la pantalla de eliminar usuario.");
-            e.printStackTrace();
+    public void initialize() {
+        aplicarClipCircular(profileImageView);
+    }
+
+    /**
+     * Funcion que cambia el idioma de las etiquetas y objetos de la ventana
+     */
+    @FXML
+    public void changeLanguage() {
+        String language = AbstractController.getIdiomaActual();
+
+        if(getPropertiesLanguage() == null){
+            setPropertiesLanguage(loadLanguage("language", language));
+        }
+        if(getPropertiesLanguage() != null){
+
+        registerNicknameLabel.setText(getPropertiesLanguage().getProperty("registerNicknameLabel"));
+        registerPasswordLabel.setText(getPropertiesLanguage().getProperty("registerPasswordLabel"));
+        registerEmailLabel.setText(getPropertiesLanguage().getProperty("registerEmailLabel"));
+        
         }
     }
-} 
+
+}

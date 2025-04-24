@@ -59,7 +59,7 @@ public class QuestionGameController extends AbstractController {
     @FXML private Pane optionPane1, optionPane2, optionPane3, optionPane4;
     @FXML private Label puntosLabel;
     @FXML private Label nivelLabel;
-    @FXML private Text bonusText;
+    @FXML private Label bonusLabel;
     @FXML private JFXButton exitButton;
     @FXML private Label timeLabel;
 
@@ -242,17 +242,17 @@ public class QuestionGameController extends AbstractController {
                 tiempoRestante = Math.min(tiempoRestante + 2, 60);
                 timeLabel.setText("Tiempo: " + tiempoRestante + "s");
     
-                bonusText.setText("+2 BONUS");
-                bonusText.setStyle("-fx-fill: green; -fx-font-weight: bold;");
-                bonusText.setVisible(true);
+                bonusLabel.setText("+2 BONUS");
+                bonusLabel.setStyle("-fx-fill: green; -fx-font-weight: bold;");
+                bonusLabel.setVisible(true);
     
-                ScaleTransition scale = new ScaleTransition(Duration.seconds(0.3), bonusText);
+                ScaleTransition scale = new ScaleTransition(Duration.seconds(0.3), bonusLabel);
                 scale.setFromX(1);
                 scale.setFromY(1);
                 scale.setToX(1.6);
                 scale.setToY(1.6);
     
-                FadeTransition fade = new FadeTransition(Duration.seconds(1.2), bonusText);
+                FadeTransition fade = new FadeTransition(Duration.seconds(1.2), bonusLabel);
                 fade.setFromValue(1.0);
                 fade.setToValue(0.0);
                 fade.setDelay(Duration.seconds(0.3));

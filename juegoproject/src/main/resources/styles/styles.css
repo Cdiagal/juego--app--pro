@@ -241,6 +241,22 @@
     -fx-background-color: rgb(170, 170, 170);
 }
 
+.updateButton{
+    -fx-border-color:#000000;
+    -fx-border-width:2;
+    -fx-border-radius:20px;
+    -fx-background-radius:20px;
+    -fx-background-color: transparent;
+}
+
+.deleteUserButton{
+    -fx-border-color:#000000;
+    -fx-border-width:2;
+    -fx-border-radius:20px;
+    -fx-background-radius:20px;
+    -fx-background-color: transparent;
+}
+
 
 /*GAME*/
 

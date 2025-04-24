@@ -192,4 +192,36 @@ public class UserDataController extends AbstractController {
         }
     }
     
+    /**
+     * Metodo que inicializa el cambio de idioma en el ComboBox.
+     */
+    @FXML
+    public void initialize(){
+        if(getPropertiesLanguage()==null){
+            setPropertiesLanguage(loadLanguage("language", getIdiomaActual()));
+        }
+        changeLanguage();
+    }
+
+    
+    /**
+     * Funcion que cambia el idioma de las etiquetas y objetos de la ventana
+     */
+    @FXML
+    public void changeLanguage() {
+        String language = AbstractController.getIdiomaActual();
+
+        if(getPropertiesLanguage() == null){
+            setPropertiesLanguage(loadLanguage("language", language));
+        }
+        if(getPropertiesLanguage() != null){
+
+        pxUserDataLabel.setText(getPropertiesLanguage().getProperty("pxUserDataLabel"));
+        rateUserDataLabel.setText(getPropertiesLanguage().getProperty("rateUserDataLabel"));
+        emailUserDataLabel.setText(getPropertiesLanguage().getProperty("emailUserDataLabel"));
+        nicknameLabel.setText(getPropertiesLanguage().getProperty("nicknameLabel"));
+        playButton.setText(getPropertiesLanguage().getProperty("playButton"));
+        logoutButton.setText(getPropertiesLanguage().getProperty("logoutButton"));
+        }
+    }
 }
