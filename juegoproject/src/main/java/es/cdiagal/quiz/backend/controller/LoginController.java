@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXButton;
 import es.cdiagal.quiz.backend.controller.abstractas.AbstractController;
 import es.cdiagal.quiz.backend.dao.UsuarioDAO;
 import es.cdiagal.quiz.backend.model.entities.UsuarioModel;
+import es.cdiagal.quiz.backend.model.utils.service.HashUtils;
 import es.cdiagal.quiz.initApp.MainApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -76,13 +77,13 @@ public class LoginController extends AbstractController{
     /**
      * Funcion que abre la ventana userData despues de comprobar los datos.
      */
-    @FXML 
+    @FXML
     public void onClicAcceptLogin(){
         UsuarioModel usuarioValidado = validarDatosLogin();
         if (usuarioValidado != null) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/fxml/userData.fxml"));
-                Scene scene = new Scene(fxmlLoader.load(), 451,600);
+                Scene scene = new Scene(fxmlLoader.load());
 
                 UserDataController userDataController = fxmlLoader.getController();
                 userDataController.setUsuario(usuarioValidado);
@@ -156,8 +157,8 @@ public class LoginController extends AbstractController{
             loginTextAdvise.setText(getPropertiesLanguage().getProperty("loginTextAdvise_errorUser"));
             return null;
         }
-        // Contrasenia incorrecta
-        if (!usuarioLogin.getPassword().equals(userLoginPasswordfield.getText())) {
+        // Contraseña incorrecta (con hash verificado)
+        if (!HashUtils.verificarPassword(userLoginPasswordfield.getText(), usuarioLogin.getPassword())) {
             loginTextAdvise.setText(getPropertiesLanguage().getProperty("loginTextAdvise_errorPassword"));
             return null;
         }

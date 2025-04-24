@@ -44,7 +44,12 @@
             <version>2.0.1</version>
         </dependency>
         
-        
+        <!--Dependencia para Hashear contrasenias-->
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>0.4</version>
+        </dependency>
         
         
 
@@ -87,6 +92,13 @@
             <version>9.0.10</version> <!-- Verifica la última versión -->
             
         </dependency>
+        <!-- audio-->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>21</version>
+        </dependency>
+        
 
         <!-- ikonli icons pack-->
         <dependency>

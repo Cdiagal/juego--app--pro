@@ -17,37 +17,32 @@
          <children>
             <Pane prefHeight="688.0" prefWidth="400.0">
                <children>
+                  <Label fx:id="registerBigLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="111.0" layoutY="25.0" minHeight="40.0" minWidth="150.0" text="REGISTRO" wrapText="true">
+                     <font>
+                        <Font name="Comic Sans MS Bold" size="25.0" />
+                     </font>
+                  </Label>
+                  <Pane fx:id="nicknameRegisterPane" layoutX="61.0" layoutY="82.0" prefHeight="118.0" prefWidth="278.0" styleClass="nicknameRegisterPane" stylesheets="@../styles/styles.css">
+                     <children>
+                        <Label fx:id="registerNicknameLabel" layoutX="37.0" layoutY="20.0" text="Alias" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="registerNicknameTextField" layoutX="37.0" layoutY="49.0" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="40.0" prefHeight="30.0" prefWidth="298.0" promptText="Introduzca un alias" />
+                     </children>
+                  </Pane>
                   <Pane fx:id="emailRegisterPane" layoutX="61.0" layoutY="235.0" prefHeight="167.0" prefWidth="278.0" styleClass="emailRegisterPane" stylesheets="@../styles/styles.css">
                      <children>
-                        <TextField fx:id="registerEmailTextField" layoutX="37.0" layoutY="50.0" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="40.0" prefHeight="30.0" prefWidth="298.0" promptText="Introduzca su email" />
                         <Label fx:id="registerEmailLabel" layoutX="38.0" layoutY="22.0" text="Email" textFill="WHITE" wrapText="true">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
+                        <TextField fx:id="registerEmailTextField" layoutX="37.0" layoutY="50.0" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="40.0" prefHeight="30.0" prefWidth="298.0" promptText="Introduzca su email" />
+                        <TextField fx:id="registerRepeatEmailTextField" layoutX="37.0" layoutY="104.0" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="40.0" prefHeight="30.0" prefWidth="298.0" promptText="Repita su email" />
                      </children>
                   </Pane>
-                  <Pane fx:id="nicknameRegisterPane" layoutX="61.0" layoutY="82.0" prefHeight="118.0" prefWidth="278.0" styleClass="nicknameRegisterPane" stylesheets="@../styles/styles.css">
-                     <children>
-                        <TextField fx:id="registerNicknameTextField" layoutX="37.0" layoutY="49.0" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="40.0" prefHeight="30.0" prefWidth="298.0" promptText="Introduzca un alias" />
-                     </children>
-                  </Pane>
-                  <Label fx:id="registerBigLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="99.0" layoutY="24.0" minHeight="40.0" minWidth="150.0" text="REGISTRO" wrapText="true">
-                     <font>
-                        <Font name="Comic Sans MS Bold" size="25.0" />
-                     </font></Label>
-                  <TextField fx:id="registerRepeatEmailTextField" layoutX="98.0" layoutY="336.0" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="40.0" prefHeight="30.0" prefWidth="298.0" promptText="Repita su email" />
-                  <Label fx:id="registerNicknameLabel" layoutX="98.0" layoutY="97.0" text="Alias" textFill="WHITE" wrapText="true">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <JFXButton fx:id="registerUserButton" layoutX="105.0" layoutY="635.0" onAction="#onClickRegister" styleClass="registerUserButton" stylesheets="@../styles/styles.css" text="Registrar" textAlignment="CENTER" wrapText="true">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="exitButton" layoutX="225.0" layoutY="635.0" onAction="#onClicExitRegister" styleClass="exitButton" stylesheets="@../styles/styles.css" text="Salir" />
                   <Pane fx:id="passwordRegisterPane" layoutX="59.0" layoutY="431.0" prefHeight="167.0" prefWidth="278.0" styleClass="passwordRegisterPane" stylesheets="@../styles/styles.css">
                      <children>
                         <Label fx:id="registerPasswordLabel" layoutX="38.0" layoutY="22.0" text="Contraseña" textFill="WHITE" wrapText="true">
@@ -59,17 +54,23 @@
                         <PasswordField fx:id="registerRepeatPasswordField" layoutX="35.0" layoutY="102.0" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="40.0" prefHeight="30.0" prefWidth="298.0" promptText="Repita su contraseña" />
                      </children>
                   </Pane>
+                  <JFXButton fx:id="registerUserButton" layoutX="105.0" layoutY="635.0" onAction="#onClickRegister" styleClass="registerUserButton" stylesheets="@../styles/styles.css" text="Registrar" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="exitButton" layoutX="225.0" layoutY="635.0" onAction="#onClicExitRegister" styleClass="exitButton" stylesheets="@../styles/styles.css" text="Salir" />
+                  <Label fx:id="nicknameRegisterAdviseLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="49.0" layoutY="207.0" minWidth="300.0" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
                   <Label fx:id="emailRegisterAdviseLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="407.0" minWidth="300.0" wrapText="true">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Label>
                   <Label fx:id="passwordRegisterAdviseLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="50.0" layoutY="605.0" minWidth="300.0" wrapText="true">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="nicknameRegisterAdviseLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="49.0" layoutY="207.0" minWidth="300.0" wrapText="true">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>

@@ -107,6 +107,7 @@ public class GameController extends AbstractController {
             // Pasa el usuario y comienza la lógica de preguntas
             QuestionGameController controller = loader.getController();
             controller.setUsuario(usuario);
+            controller.setGameController(this);
 
             Scene scene = new Scene(root);
             stage.setTitle("Quiz");
@@ -137,28 +138,37 @@ public class GameController extends AbstractController {
      * Sale del juego, finaliza la partida y regresa a la vista de datos de usuario.
      */
     @FXML
-    private void salirDelJuego() {
-        finalizarPartida();
-        try {
-            Stage stage = (Stage) rootPane.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/userData.fxml"));
-            Parent root = loader.load();
+    public void salirDelJuego() {
+        Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmacion.setTitle("Salir del juego");
+        confirmacion.setHeaderText("¿Seguro que quieres salir?");
+        confirmacion.setContentText("Se guardará tu progreso solo si has jugado al menos 1 minuto.");
 
-            UserDataController userDataController = loader.getController();
-            userDataController.setUsuario(usuario);
-            userDataController.usuarioData();
+        Optional<ButtonType> resultado = confirmacion.showAndWait();
+        if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
+            finalizarPartida();
+            try {
+                Stage stage = (Stage) rootPane.getScene().getWindow();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/userData.fxml"));
+                Parent root = loader.load();
 
-            stage.setTitle("Datos del usuario");
-            stage.setScene(new Scene(root));
-            stage.sizeToScene();
-            stage.show();
+                UserDataController userDataController = loader.getController();
+                userDataController.setUsuario(usuario);
+                userDataController.usuarioData();
 
-            showAlert(Alert.AlertType.INFORMATION, "Partida finalizada", "¡Gracias por jugar!");
-        } catch (Exception e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo regresar a datos de usuario.");
+                stage.setTitle("Datos del usuario");
+                stage.setScene(new Scene(root));
+                stage.sizeToScene();
+                stage.show();
+
+                showAlert(Alert.AlertType.INFORMATION, "Partida finalizada", "¡Gracias por jugar!");
+            } catch (Exception e) {
+                e.printStackTrace();
+                showAlert(Alert.AlertType.ERROR, "Error", "No se pudo regresar a datos de usuario.");
+            }
         }
     }
+
 
     /**
      * Método utilitario para mostrar alertas.

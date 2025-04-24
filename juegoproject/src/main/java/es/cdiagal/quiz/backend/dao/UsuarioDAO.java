@@ -136,7 +136,7 @@ public class UsuarioDAO extends Conexion {
             e.printStackTrace();
             return false;
         } finally {
-
+            cerrar();
         }
         
     }
@@ -159,7 +159,7 @@ public class UsuarioDAO extends Conexion {
             e.printStackTrace();
             return false;
         } finally {
-
+            cerrar();
         }
         
     }
@@ -220,7 +220,7 @@ public class UsuarioDAO extends Conexion {
 
     /**
      * Metodo que obtiene el nivel del usuario de la BBDD.
-     * @param idUsuario del usuario.    
+     * @param idUsuario del usuario.
      * @return nivel del usuario.
      */
     public int obtenerNivel(int idUsuario) {
@@ -266,5 +266,55 @@ public class UsuarioDAO extends Conexion {
             cerrar();
         }
     }
+
+
+        /**
+     * Método que actualiza la imagen de perfil del usuario.
+     * @param idUsuario ID del usuario.
+     * @param imagenBytes imagen convertida a byte[].
+     * @return true si se actualiza correctamente.
+     */
+    public boolean actualizarImagen(int idUsuario, byte[] imagenBytes) {
+        String sql = "UPDATE usuarios SET imagen_perfil = ? WHERE id = ?";
+        try {
+            conectar();
+            try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
+                stmt.setBytes(1, imagenBytes);
+                stmt.setInt(2, idUsuario);
+                return stmt.executeUpdate() > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            cerrar();
+        }
+    }
+
+
+    /**
+ * Obtiene la imagen de perfil del usuario como byte[].
+ * @param idUsuario ID del usuario.
+ * @return imagen en bytes o null.
+ */
+public byte[] obtenerImagen(int idUsuario) {
+    String sql = "SELECT imagen_perfil FROM usuarios WHERE id = ?";
+    try {
+        conectar();
+        try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
+            stmt.setInt(1, idUsuario);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getBytes("imagen_perfil");
+                }
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        cerrar();
+    }
+    return null;
+}
 
 }

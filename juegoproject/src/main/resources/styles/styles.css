@@ -177,12 +177,96 @@
 
 /*USERDATA*/
 
+.userDataAnchorPane{
+    -fx-background-color: #fef3df;
+}
 
-.profileImageView{
+
+.userDataButtonPane{
+    -fx-border-color:#000000;
+    -fx-border-width:2;
+    -fx-background-color: rgb(170, 170, 170);
+}
+
+.playButton{
+    -fx-border-color:#000000;
+    -fx-border-width:2;
+    -fx-border-radius:20px;
+    -fx-background-radius:20px;
+    -fx-background-color: #ebb106;
+}
+
+.userdataPane{
+    -fx-border-color:#000000;
+    -fx-border-width:2;
+    -fx-border-radius:20px;
+    -fx-background-radius:20px;
+}
+
+.changeImageButton{
     -fx-border-radius:100%;
     -fx-background-radius:100%;
     -fx-border-width:2;
     -fx-border-color:#000000;
+}
+
+.logoutButton{
+    -fx-border-color:#000000;
+    -fx-border-width:2;
+    -fx-border-radius:20px;
+    -fx-background-radius:20px;
+    -fx-background-color: #d83c0d;
+}
+
+.updateButton{
+    -fx-border-color:#000000;
+    -fx-border-width:2;
+    -fx-border-radius:20px;
+    -fx-background-radius:20px;
+    -fx-background-color: #74deff;
+}
+
+
+/*UPDATE*/
+
+
+.updateAnchorPane{
+    -fx-background-color: #fef3df;
+}
+
+
+.userDataButtonPane{
+    -fx-border-color:#000000;
+    -fx-border-width:2;
+    -fx-background-color: rgb(170, 170, 170);
+}
+
+
+/*GAME*/
+
+.gameAnchorPane{
+    -fx-background-color: #fef3df;
+}
+
+.dataPane{
+    -fx-background-color: #663a99;
+    -fx-border-color: rgb(255, 251, 251);
+    -fx-border-radius: 10px;
+    -fx-background-radius:10px;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.3, 0, 2);
+}
+
+.grindPane{
+    -fx-border-color:#000000;
+    -fx-border-width:2;
+    -fx-background-color: rgb(253, 253, 253);
+}
+
+.respuesta-label {
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-text-fill: black; /* Opcional */
 }
 
 /**

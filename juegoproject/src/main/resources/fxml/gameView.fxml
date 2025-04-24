@@ -1,19 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="es.cdiagal.quiz.backend.controller.QuestionGameController" prefWidth="600" prefHeight="600">
+<AnchorPane fx:id="gameAnchorPane" prefHeight="705.0" prefWidth="735.0" styleClass="gameAnchorPane" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.cdiagal.quiz.backend.controller.QuestionGameController">
+   <Pane fx:id="dataPane" layoutX="118.0" layoutY="46.0" prefHeight="71.0" prefWidth="500.0" styleClass="dataPane" stylesheets="@../styles/styles.css">
+      <children>
+         <Label fx:id="nivelLabel" contentDisplay="CENTER" layoutX="48.0" layoutY="27.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Label>
+         <Label fx:id="puntosLabel" contentDisplay="CENTER" layoutX="217.0" layoutY="27.0" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Label>
+         <Label fx:id="timeLabel" layoutX="372.0" layoutY="27.0" textFill="WHITE" wrapText="true">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Label>
+      </children>
+   </Pane>
 
     <!-- Etiqueta para la pregunta -->
-    <VBox layoutX="50" layoutY="30" prefWidth="500" spacing="10">
-        <Label fx:id="questionLabel" wrapText="true" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
-        <ProgressBar fx:id="timerBar" prefWidth="500" progress="1.0" />
+    <VBox alignment="CENTER" layoutX="70.0" layoutY="118.0" prefHeight="127.0" prefWidth="601.0" spacing="10">
+        <Label fx:id="questionLabel" style="-fx-font-size: 18px; -fx-font-weight: bold;" wrapText="true" />
+      <Pane prefHeight="46.0" prefWidth="601.0">
+         <children>
+              <ProgressBar fx:id="timerBar" layoutX="51.0" layoutY="23.0" prefWidth="500" progress="1.0" />
+         </children>
+      </Pane>
     </VBox>
 
     <!-- Grid para las 4 opciones -->
-    <GridPane layoutX="50" layoutY="100" hgap="20" vgap="20" prefWidth="500" prefHeight="400">
+    <GridPane alignment="CENTER" hgap="20" layoutX="121.0" layoutY="253.0" prefHeight="400" prefWidth="500" vgap="20">
         <columnConstraints>
             <ColumnConstraints percentWidth="50" />
             <ColumnConstraints percentWidth="50" />
@@ -23,24 +58,52 @@
             <RowConstraints percentHeight="50" />
         </rowConstraints>
 
-        <Pane fx:id="optionPane1" styleClass="option-pane" onMouseClicked="#handleOption1">
-            <Label fx:id="optionLabel1" wrapText="true" style="-fx-font-size: 16px;" />
-        </Pane>
-        <Pane fx:id="optionPane2" styleClass="option-pane" onMouseClicked="#handleOption2" GridPane.columnIndex="1">
-            <Label fx:id="optionLabel2" wrapText="true" style="-fx-font-size: 16px;" />
-        </Pane>
-        <Pane fx:id="optionPane3" styleClass="option-pane" onMouseClicked="#handleOption3" GridPane.rowIndex="1">
-            <Label fx:id="optionLabel3" wrapText="true" style="-fx-font-size: 16px;" />
-        </Pane>
-        <Pane fx:id="optionPane4" styleClass="option-pane" onMouseClicked="#handleOption4" GridPane.columnIndex="1" GridPane.rowIndex="1">
-            <Label fx:id="optionLabel4" wrapText="true" style="-fx-font-size: 16px;" />
-        </Pane>
+        <StackPane fx:id="optionPane1" onMouseClicked="#onClickOption1" style="-fx-border-color: #017f76; -fx-background-color: white; -fx-border-width: 2;" styleClass="option-pane">
+            <Label fx:id="optionLabel1" style="-fx-font-size: 16px;" styleClass="respuesta-label" stylesheets="@../styles/styles.css" wrapText="true">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font></Label>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+        </StackPane>
+        <StackPane fx:id="optionPane2" onMouseClicked="#onClickOption2" style="-fx-border-color: #017f76; -fx-background-color: white; -fx-border-width: 2;" styleClass="option-pane" GridPane.columnIndex="1">
+            <Label fx:id="optionLabel2" style="-fx-font-size: 16px;" styleClass="respuesta-label" stylesheets="@../styles/styles.css" wrapText="true" />
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+        </StackPane>
+        <StackPane fx:id="optionPane3" onMouseClicked="#onClickOption3" style="-fx-border-color: #017f76; -fx-background-color: white; -fx-border-width: 2;" styleClass="option-pane" GridPane.rowIndex="1">
+            <Label fx:id="optionLabel3" style="-fx-font-size: 16px;" styleClass="respuesta-label" stylesheets="@../styles/styles.css" wrapText="true" />
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+        </StackPane>
+        <StackPane fx:id="optionPane4" onMouseClicked="#onClickOption4" style="-fx-border-color: #017f76; -fx-background-color: white; -fx-border-width: 2;" styleClass="option-pane" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label fx:id="optionLabel4" style="-fx-font-size: 16px;" styleClass="respuesta-label" stylesheets="@../styles/styles.css" wrapText="true" />
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+        </StackPane>
     </GridPane>
 
     <!-- Feedback -->
-    <Label fx:id="feedbackLabel" layoutX="50" layoutY="520" prefWidth="500" style="-fx-font-size: 16px; -fx-text-fill: green;" textAlignment="CENTER" alignment="CENTER" />
-
-    <!-- Botón para salir -->
-    <Button fx:id="exitButton" layoutX="480" layoutY="20" text="Salir" onAction="#handleExit" />
+    <Label fx:id="feedbackLabel" alignment="CENTER" layoutX="118.0" layoutY="666.0" prefWidth="500" style="-fx-font-size: 16px; -fx-text-fill: green;" textAlignment="CENTER">
+      <font>
+         <Font name="System Bold" size="16.0" />
+      </font></Label>
+   <JFXButton fx:id="exitButton" layoutX="652.0" layoutY="33.0" onAction="#onClickExitGameButton" prefHeight="48.0" prefWidth="55.0" ripplerFill="WHITE" text=" ">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+      <graphic>
+         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../images/exit.png" />
+            </image>
+         </ImageView>
+      </graphic>
+   </JFXButton>
+   <Text fx:id="bonusText" layoutX="560.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="64.0" />
 
 </AnchorPane>

@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXButton;
 import es.cdiagal.quiz.backend.controller.abstractas.AbstractController;
 import es.cdiagal.quiz.backend.dao.UsuarioDAO;
 import es.cdiagal.quiz.backend.model.entities.UsuarioModel;
+import es.cdiagal.quiz.backend.model.utils.service.HashUtils;
 import es.cdiagal.quiz.initApp.MainApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -63,7 +64,8 @@ public class RegisterController  extends AbstractController{
         nuevoUsuario.setRacha(0);
         nuevoUsuario.setPuntos(0);
         nuevoUsuario.setNivel(1);
-
+        
+        nuevoUsuario.setPassword(HashUtils.hashPassword(registerPasswordField.getText()));
         boolean insertado = usuarioDAO.insertar(nuevoUsuario);
 
         if (insertado) {
