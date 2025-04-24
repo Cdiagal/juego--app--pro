@@ -30,7 +30,7 @@
         </JFXButton>
    <Pane fx:id="userDataButtonPane" layoutY="607.0" prefHeight="95.0" prefWidth="450.0" styleClass="userDataButtonPane" stylesheets="@../styles/styles.css">
       <children>
-         <JFXButton fx:id="playButton" alignment="CENTER" contentDisplay="CENTER" layoutX="109.0" layoutY="30.0" minHeight="35.0" minWidth="35.0" onAction="#onClickPlay" styleClass="playButton" stylesheets="@../styles/styles.css" text="▶ JUGAR" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+         <JFXButton fx:id="playButton" alignment="CENTER" contentDisplay="CENTER" layoutX="94.0" layoutY="30.0" minHeight="35.0" minWidth="35.0" onAction="#onClickPlay" styleClass="playButton" stylesheets="@../styles/styles.css" text="▶ JUGAR" textAlignment="CENTER" textFill="WHITE" wrapText="true">
             <font>
                <Font name="System Bold" size="18.0" />
             </font>
@@ -93,4 +93,5 @@
       </children>
    </Pane>
    <JFXButton fx:id="changeImageButton" layoutX="264.0" layoutY="132.0" onAction="#onClicChangeImage" prefHeight="43.0" prefWidth="46.0" styleClass="changeImageButton" stylesheets="@../styles/styles.css" text=" " />
+   <JFXButton fx:id="updateButton" layoutX="194.0" layoutY="564.0" onAction="#onClickOpenUpdate" />
 </AnchorPane>

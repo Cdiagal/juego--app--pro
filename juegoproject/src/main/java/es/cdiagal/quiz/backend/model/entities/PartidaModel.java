@@ -13,7 +13,7 @@ import es.cdiagal.quiz.backend.controller.abstractas.AbstractController;
 
 /**
  * Clase que gestiona toda la logica de las partidas.
- * @author cdiagal  
+ * @author cdiagal
  * @version 1.0.0
  */
 

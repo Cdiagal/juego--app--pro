@@ -8,6 +8,8 @@ import es.cdiagal.quiz.backend.controller.abstractas.AbstractController;
 import es.cdiagal.quiz.backend.model.entities.PreguntaModel;
 import es.cdiagal.quiz.backend.model.entities.UsuarioModel;
 import es.cdiagal.quiz.backend.model.utils.service.PreguntaServiceModel;
+import es.cdiagal.quiz.backend.controller.GameController;
+import es.cdiagal.quiz.backend.dao.PartidaDAO;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -143,7 +145,7 @@ public class QuestionGameController extends AbstractController {
                 timerBar.setStyle("-fx-accent: red;");
             }
         });
-
+        // Sonido que se emite cuando la barra de tiempo esta por debajo de 5".
         tiempoTexto = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
             tiempoRestante--;
             timeLabel.setText("Tiempo: " + tiempoRestante + "s");
@@ -301,7 +303,7 @@ public class QuestionGameController extends AbstractController {
         }
     }
     
-
+    //Muestra la siguiente pregunta tras responder.
     private void siguientePregunta() {
         indexPregunta++;
         mostrarPregunta();

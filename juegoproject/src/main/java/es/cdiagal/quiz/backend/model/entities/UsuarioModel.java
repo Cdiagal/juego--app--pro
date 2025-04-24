@@ -16,7 +16,7 @@ public class UsuarioModel {
     private int puntos;
     private int nivel;
     private byte[] imagen;
-    private int rachaCorrectasSeguidas; 
+    private int rachaCorrectasSeguidas;
 
     /**
      * Constructor vacio de la clase.
@@ -45,7 +45,7 @@ public class UsuarioModel {
     }
 
     /**
-     * Constructor que contiene los atributos de la clase para gestionar 
+     * Constructor que contiene los atributos de la clase para gestionar
      * @param nickname
      * @param email
      * @param password
@@ -139,10 +139,6 @@ public class UsuarioModel {
         this.puntos += 1;
         this.rachaCorrectasSeguidas++;
     
-        // Bonus de +2 puntos cada 5 respuestas correctas consecutivas
-        if (this.rachaCorrectasSeguidas % 5 == 0) {
-            this.puntos += 2;
-        }
     }
     
 

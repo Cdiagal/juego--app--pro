@@ -43,7 +43,7 @@ public class PreguntaModel {
      * @param respuestaCorrecta
      * @param dificultad
      */
-    public PreguntaModel(int id, String enunciado, String opcionA, String opcionB, 
+    public PreguntaModel(int id, String enunciado, String opcionA, String opcionB,
                     String opcionC, String opcionD, String respuestaCorrecta, int dificultad) {
         this.id = id;
         this.enunciado = enunciado;

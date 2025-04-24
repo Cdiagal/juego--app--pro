@@ -109,7 +109,7 @@ public class UsuarioDAO extends Conexion {
             return false;
         } finally {
             cerrar();
-        }        
+        }
     }
 
 

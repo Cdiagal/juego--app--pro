@@ -72,7 +72,7 @@ public class GameController extends AbstractController {
             } else {
                 
             }
-        }  
+        }
     }
 
     /**
