@@ -251,7 +251,7 @@ public class UsuarioDAO extends Conexion {
      * @return nivel actualizado.
      */
     public boolean actualizarNivel(UsuarioModel usuario) {
-        String sql = "UPDATE usuarios SET nivel = ? WHERE id = ?";   
+        String sql = "UPDATE usuarios SET nivel = ? WHERE id = ?";
         try {
             conectar();
             try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {

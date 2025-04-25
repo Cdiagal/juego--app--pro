@@ -5,11 +5,12 @@ import java.util.List;
 import com.jfoenix.controls.JFXButton;
 
 import es.cdiagal.quiz.backend.controller.abstractas.AbstractController;
+import es.cdiagal.quiz.backend.dao.UsuarioDAO;
 import es.cdiagal.quiz.backend.model.entities.PreguntaModel;
 import es.cdiagal.quiz.backend.model.entities.UsuarioModel;
 import es.cdiagal.quiz.backend.model.utils.service.PreguntaServiceModel;
+import es.cdiagal.quiz.initApp.MainApplication;
 import es.cdiagal.quiz.backend.controller.GameController;
-import es.cdiagal.quiz.backend.dao.PartidaDAO;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -28,7 +29,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -43,6 +43,7 @@ public class QuestionGameController extends AbstractController {
     private final PreguntaServiceModel preguntaService;
     private List<PreguntaModel> preguntas;
     private int indexPregunta = 0;
+    private int respuestasCorrectas = 0;
     private Timeline timeline;
     private final int tiempoTotal = 30;
     private int tiempoRestante;
@@ -51,6 +52,7 @@ public class QuestionGameController extends AbstractController {
     private Timeline tiempoTexto;
     private javafx.scene.media.AudioClip ticTacClip;
     private boolean sonidoIniciado = false;
+    private boolean juegoTerminado = false;
 
 
 
@@ -79,8 +81,11 @@ public class QuestionGameController extends AbstractController {
     }
 
     public void iniciarJuego() {
+        detenerTemporizador();
         preguntas = preguntaService.obtenerPreguntasParaUsuario(usuario, 10);
         indexPregunta = 0;
+        respuestasCorrectas = 0;
+        juegoTerminado = false;
     
         // Mostrar puntos y nivel desde el inicio
         if (puntosLabel != null) {
@@ -103,12 +108,7 @@ public class QuestionGameController extends AbstractController {
 
         preguntaActual = preguntas.get(indexPregunta);
         questionLabel.setText(preguntaActual.getEnunciado());
-        List<String> opciones = preguntaActual.getOpcionesMezcladas();
-
-        optionLabel1.setText(opciones.get(0));
-        optionLabel2.setText(opciones.get(1));
-        optionLabel3.setText(opciones.get(2));
-        optionLabel4.setText(opciones.get(3));
+        preguntaActual.cargarRespuestas(optionLabel1, optionLabel2, optionLabel3, optionLabel4);
 
         resetEstilosOpciones();
         feedbackLabel.setText("");
@@ -121,14 +121,12 @@ public class QuestionGameController extends AbstractController {
     private void iniciarTemporizador() {
         detenerTemporizador();
 
-        tiempoRestante = (usuario != null && usuario.getRachaCorrectasSeguidas() > 0)
-            ? Math.min(tiempoTotal + 2, 60)
-            : tiempoTotal;
-
+        tiempoRestante = tiempoTotal;
+         // Inicializa la barra de progreso al 100% y muestra el tiempo restante
         timerBar.setProgress(1.0);
         timeLabel.setText("Tiempo: " + tiempoRestante + "s");
 
-
+        // Configura la animación para la barra de progreso visual
         timeline = new Timeline(
             new KeyFrame(Duration.ZERO, new KeyValue(timerBar.progressProperty(), 1.0)),
             new KeyFrame(Duration.seconds(tiempoRestante), new KeyValue(timerBar.progressProperty(), 0.0))
@@ -145,28 +143,25 @@ public class QuestionGameController extends AbstractController {
                 timerBar.setStyle("-fx-accent: red;");
             }
         });
-        // Sonido que se emite cuando la barra de tiempo esta por debajo de 5".
+        // Cuenta regresiva: cada segundo actualiza el label del tiempo.
         tiempoTexto = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
             tiempoRestante--;
             timeLabel.setText("Tiempo: " + tiempoRestante + "s");
 
+            // Sonido que se emite cuando la barra de tiempo esta por debajo de 5".
             if (tiempoRestante == 5 && ticTacClip != null && !sonidoIniciado) {
                 sonidoIniciado = true;
                 ticTacClip.play();
             }
-            if (tiempoRestante <= 0) {
+            //Si se acaba el tiempo, muestra el alert de "Fin del juego".
+            boolean acabado = tiempoRestante <=0;
+
+            if (acabado) {
                 detenerTemporizador();
                 feedbackLabel.setText("¡Tiempo agotado!");
                 usuario.reiniciarRachaCorrectasSeguidas();
             
                 Platform.runLater(() -> {
-                    ImageView iconX = new ImageView(new Image(getClass().getResource("/images/close_red.png").toExternalForm()));
-                    iconX.setFitWidth(16);
-                    iconX.setFitHeight(16);
-            
-                    ImageView iconRetry = new ImageView(new Image(getClass().getResource("/images/retry.png").toExternalForm()));
-                    iconRetry.setFitWidth(16);
-                    iconRetry.setFitHeight(16);
             
                     ButtonType salir = new ButtonType("Salir", ButtonData.CANCEL_CLOSE);
                     ButtonType reintentar = new ButtonType("Reintentar", ButtonData.OK_DONE);
@@ -195,6 +190,7 @@ public class QuestionGameController extends AbstractController {
         }));
         tiempoTexto.setCycleCount(tiempoRestante);
 
+        // Carga el sonido si aun no se ha cargado.
         try {
             ticTacClip = new AudioClip(getClass().getResource("/sounds/tictac.mp3").toExternalForm());
             ticTacClip.setCycleCount(AudioClip.INDEFINITE); 
@@ -202,7 +198,7 @@ public class QuestionGameController extends AbstractController {
         } catch (Exception e) {
             System.out.println("No se pudo cargar el sonido tictac: " + e.getMessage());
         }
-
+        // Inicia la barra de progreso y el contador de texto
         timeline.play();
         tiempoTexto.play();
     }
@@ -232,6 +228,8 @@ public class QuestionGameController extends AbstractController {
             usuario.incrementarPuntosPorAcierto();
             usuario.incrementarRachaCorrectasSeguidas();
             usuario.actualizarNivelPorPuntos();
+
+            respuestasCorrectas++;
     
             if (nivelLabel != null) nivelLabel.setText("Nivel: " + usuario.getNivel());
             if (puntosLabel != null) puntosLabel.setText("Puntos: " + usuario.getPuntos());
@@ -239,6 +237,12 @@ public class QuestionGameController extends AbstractController {
             feedbackLabel.setText("¡Correcto!");
             feedbackLabel.setStyle("-fx-text-fill: green;");
             paneSeleccionado.setStyle("-fx-background-color: #A3D9A5;");
+
+            if(respuestasCorrectas >= 10){
+                terminarJuego();
+            } else {
+                new Timeline(new KeyFrame(Duration.seconds(2), e -> siguientePregunta())).play();
+            }
     
             if (usuario.getRachaCorrectasSeguidas() == 5) {
                 tiempoRestante = Math.min(tiempoRestante + 2, 60);
@@ -263,45 +267,53 @@ public class QuestionGameController extends AbstractController {
                 scale.play();
             }
     
-            new Timeline(new KeyFrame(Duration.seconds(2), e -> siguientePregunta())).play();
         } else {
             usuario.reiniciarRachaCorrectasSeguidas();
             feedbackLabel.setText("Incorrecto. La correcta era: " + letraCorrecta);
             feedbackLabel.setStyle("-fx-text-fill: red; -fx-font-weight: 900;");
             paneSeleccionado.setStyle("-fx-background-color: #F4A7A7;");
-    
-            ImageView iconX = new ImageView(new Image(getClass().getResource("/images/close_red.png").toExternalForm()));
-            iconX.setFitWidth(16);
-            iconX.setFitHeight(16);
-    
-            ImageView iconRetry = new ImageView(new Image(getClass().getResource("/images/retry.png").toExternalForm()));
-            iconRetry.setFitWidth(16);
-            iconRetry.setFitHeight(16);
-    
-            ButtonType salir = new ButtonType("Salir", ButtonData.CANCEL_CLOSE);
-            ButtonType reintentar = new ButtonType("Reintentar", ButtonData.OK_DONE);
-    
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Fin de la partida");
-            alert.setHeaderText("Respuesta incorrecta");
-            alert.setContentText("Has perdido. ¿Quieres volver a intentarlo o salir?");
-            alert.getButtonTypes().setAll(salir, reintentar);
-    
-            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-            stage.getIcons().add(new Image(getClass().getResource("/images/alert_icon.png").toExternalForm()));
-    
-            ((javafx.scene.control.Button) alert.getDialogPane().lookupButton(salir)).setGraphic(iconX);
-            ((javafx.scene.control.Button) alert.getDialogPane().lookupButton(reintentar)).setGraphic(iconRetry);
-    
-            alert.showAndWait().ifPresent(respuesta -> {
-                if (respuesta == salir && gameController != null) {
-                    gameController.salirDelJuego();
-                } else if (respuesta == reintentar) {
-                    iniciarJuego();
-                }
-            });
+
+            new Timeline(new KeyFrame(Duration.seconds(2), e -> siguientePregunta())).play();
         }
     }
+
+    private void terminarJuego() {
+        // Establecer flag a true para evitar que se muestre el alert después de cada pregunta
+        juegoTerminado = true;
+        // Detener temporizador y mostrar la alerta de finalización
+        detenerTemporizador();
+        feedbackLabel.setText("¡Has completado el cuestionario!");
+        usuario.reiniciarRachaCorrectasSeguidas();
+
+        Platform.runLater(() -> {
+            ButtonType continuar = new ButtonType("🔄 Continuar", ButtonData.CANCEL_CLOSE);
+            ButtonType salir = new ButtonType("👋 Salir", ButtonData.OK_DONE);
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Finalizado");
+            alert.setHeaderText("¡Felicidades! Has completado el cuestionario.");
+            alert.setContentText("¿Quieres continuar jugando o salir?");
+            alert.getButtonTypes().setAll(continuar, salir);
+
+            alert.showAndWait().ifPresent(respuesta -> {
+                if (respuesta == salir) {
+                    // Guardar los datos del usuario
+                    guardarDatosUsuario();
+                    irAUserData(); // Volver a la pantalla de usuario
+                } else if (respuesta == continuar) {
+                    // Reiniciar el juego o continuar con otro set de preguntas
+                    iniciarJuego(); // Reinicia el juego
+                }
+            });
+        });
+    }
+
+    private void guardarDatosUsuario() {
+        // Aquí puedes llamar a tu servicio de base de datos para guardar los puntos y nivel
+        UsuarioDAO dao = new UsuarioDAO(getRutaArchivoBD());
+        dao.actualizarUsuario(usuario); // Actualizar usuario en la base de datos
+    }
+
     
     //Muestra la siguiente pregunta tras responder.
     private void siguientePregunta() {
@@ -325,41 +337,65 @@ public class QuestionGameController extends AbstractController {
      */
     @FXML
     public void onClickExitGameButton(){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmar salida");
-        alert.setHeaderText("¿Quieres salir del juego?");
-        alert.setContentText("Perderás el progreso actual de esta partida.");
+        detenerTemporizador();
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/fxml/userData.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
 
-        ButtonType botonSi = new ButtonType("Sí");
-        ButtonType botonNo = new ButtonType("No");
+                UserDataController controller = fxmlLoader.getController();
+                controller.setUsuario(usuario);
 
-        alert.getButtonTypes().setAll(botonSi, botonNo);
-
-        alert.showAndWait().ifPresent(respuesta -> {
-            if (respuesta == botonSi) {
-                // Salir del juego
-                if (gameController != null) {
-                    gameController.salirDelJuego();
-                }
-
-                // Cargar la vista de userData.fxml
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/userData.fxml"));
-                    Scene escena = new Scene(loader.load());
-                    
-                    // Pasar el usuario a la vista
-                    UserDataController controller = loader.getController();
-                    controller.setUsuario(usuario);
-
-                    Stage stage = (Stage) timerBar.getScene().getWindow();
-                    stage.setTitle("Perfil de usuario");
-                    stage.setScene(escena);
-                    stage.show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                Stage stage = (Stage) exitButton.getScene().getWindow();
+                stage.setTitle("Usuario");
+                stage.setScene(scene);
+                stage.sizeToScene();
+                stage.show();
+            } catch (Exception e) {
+                System.out.println("Error al cargar la página.");
+                e.printStackTrace();
             }
-        });
+            
+    }
+
+
+
+    /**
+     * Metodo que retorna una ventana tipo Alert con un icono
+     */
+    private void mostrarAlertaConIcono(String titulo, String mensaje, String iconoPath) {
+        Image image = new Image(iconoPath);
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(40);
+        imageView.setFitHeight(40);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.setGraphic(imageView);
+        alert.showAndWait();
+    }
+
+    /**
+     * Dirige a userdata.
+     */
+    private void irAUserData() {
+        // Redirige a la página de datos del usuario
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/fxml/userData.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+
+            UserDataController controller = fxmlLoader.getController();
+            controller.setUsuario(usuario);  // Cargar el usuario al controlador de la vista
+
+            Stage stage = (Stage) exitButton.getScene().getWindow();
+            stage.setTitle("Usuario");
+            stage.setScene(scene);
+            stage.sizeToScene();
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("Error al cargar la página.");
+            e.printStackTrace();
+        }
     }
 
     @FXML private void onClickOption1() { comprobarRespuesta(optionLabel1.getText(), optionPane1); }

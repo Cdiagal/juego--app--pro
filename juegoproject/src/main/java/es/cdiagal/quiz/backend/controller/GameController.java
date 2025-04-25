@@ -7,6 +7,8 @@ import es.cdiagal.quiz.backend.controller.abstractas.AbstractController;
 import es.cdiagal.quiz.backend.model.entities.PartidaModel;
 import es.cdiagal.quiz.backend.model.entities.UsuarioModel;
 import es.cdiagal.quiz.backend.model.utils.service.PartidaServiceModel;
+import es.cdiagal.quiz.backend.controller.QuestionGameController;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,19 +25,23 @@ import javafx.stage.Stage;
  */
 
 public class GameController extends AbstractController {
+    private QuestionGameController questionGameController;
     private final PartidaServiceModel partidaService;
     private PartidaModel partida;
     private UsuarioModel usuario;
     private int idUltimaPreguntaActual;
 
     @FXML private AnchorPane rootPane;
-
     /**
      * Constructor: inyecta la ruta de BD al servicio.
      */
     public GameController() {
         super(); // PATH_DB establecido en AbstractController
         this.partidaService = new PartidaServiceModel(getRutaArchivoBD());
+    }
+
+    public void setUsuario(UsuarioModel usuario) {
+        this.usuario = usuario;
     }
 
     /**
@@ -70,8 +76,10 @@ public class GameController extends AbstractController {
                 }
                 
             } else {
-                
+                crearPartidaNueva();
             }
+            
+            iniciarLogicaJuego();
         }
     }
 
@@ -108,6 +116,7 @@ public class GameController extends AbstractController {
             QuestionGameController controller = loader.getController();
             controller.setUsuario(usuario);
             controller.setGameController(this);
+            this.questionGameController = controller;
 
             Scene scene = new Scene(root);
             stage.setTitle("Quiz");
@@ -135,7 +144,7 @@ public class GameController extends AbstractController {
     }
 
     /**
-     * Sale del juego, finaliza la partida y regresa a la vista de datos de usuario.
+     * Sale del juego, detiene temporizador y regresa a la vista de datos de usuario.
      */
     @FXML
     public void salirDelJuego() {
@@ -147,27 +156,31 @@ public class GameController extends AbstractController {
         Optional<ButtonType> resultado = confirmacion.showAndWait();
         if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
             finalizarPartida();
-            try {
-                Stage stage = (Stage) rootPane.getScene().getWindow();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/userData.fxml"));
-                Parent root = loader.load();
 
-                UserDataController userDataController = loader.getController();
-                userDataController.setUsuario(usuario);
-                userDataController.usuarioData();
+            Platform.runLater(() -> {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/userData.fxml"));
+                    Parent root = loader.load();
 
-                stage.setTitle("Datos del usuario");
-                stage.setScene(new Scene(root));
-                stage.sizeToScene();
-                stage.show();
+                    UserDataController controller = loader.getController();
+                    controller.setUsuario(usuario);
+                    controller.usuarioData();
 
-                showAlert(Alert.AlertType.INFORMATION, "Partida finalizada", "¡Gracias por jugar!");
-            } catch (Exception e) {
-                e.printStackTrace();
-                showAlert(Alert.AlertType.ERROR, "Error", "No se pudo regresar a datos de usuario.");
-            }
+                    Stage stage = (Stage) rootPane.getScene().getWindow();
+                    stage.setScene(new Scene(root));
+                    stage.setTitle("Datos del usuario");
+                    stage.sizeToScene();
+                    stage.show();
+
+                    showAlert(Alert.AlertType.INFORMATION, "Partida finalizada", "¡Gracias por jugar!");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    showAlert(Alert.AlertType.ERROR, "Error", "No se pudo regresar a datos de usuario.");
+                }
+            });
         }
     }
+
 
 
     /**
@@ -180,4 +193,6 @@ public class GameController extends AbstractController {
         alert.setContentText(content);
         alert.showAndWait();
     }
+
+   
 }

@@ -11,8 +11,13 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="updateAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="450.0" minWidth="650.0" prefHeight="561.0" prefWidth="853.0" styleClass="updateAnchorPane" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="updateAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="450.0" minWidth="650.0" prefHeight="561.0" prefWidth="853.0" styleClass="updateAnchorPane" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.cdiagal.quiz.backend.controller.UpdateUserDataController">
    <children>
+      <ImageView fx:id="cameraIV" fitHeight="40.0" fitWidth="40.0" layoutX="349.0" layoutY="229.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/camara.png" />
+         </image>
+      </ImageView>
       <Pane fx:id="nicknameRegisterPane" layoutX="114.0" layoutY="310.0" prefHeight="118.0" prefWidth="278.0" styleClass="nicknameRegisterPane" stylesheets="@../styles/styles.css">
          <children>
             <Label fx:id="registerNicknameLabel" layoutX="37.0" layoutY="20.0" text="Alias" textFill="WHITE" wrapText="true">
@@ -21,6 +26,11 @@
                </font>
             </Label>
             <TextField fx:id="registerNicknameTextField" layoutX="37.0" layoutY="49.0" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="40.0" prefHeight="30.0" prefWidth="298.0" promptText="Introduzca un alias" />
+            <Label fx:id="nicknameRegisterAdviseLabel" layoutX="68.0" layoutY="85.0" prefHeight="17.0" prefWidth="20.0" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <Pane fx:id="emailRegisterPane" layoutX="509.0" layoutY="69.0" prefHeight="167.0" prefWidth="278.0" styleClass="emailRegisterPane" stylesheets="@../styles/styles.css">
@@ -32,6 +42,11 @@
             </Label>
             <TextField fx:id="registerEmailTextField" layoutX="37.0" layoutY="50.0" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="40.0" prefHeight="30.0" prefWidth="298.0" promptText="Introduzca su email" />
             <TextField fx:id="registerRepeatEmailTextField" layoutX="37.0" layoutY="104.0" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="40.0" prefHeight="30.0" prefWidth="298.0" promptText="Repita su email" />
+            <Label fx:id="emailRegisterAdviseLabel" layoutX="117.0" layoutY="140.0" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <Pane fx:id="passwordRegisterPane" layoutX="509.0" layoutY="273.0" prefHeight="167.0" prefWidth="278.0" styleClass="passwordRegisterPane" stylesheets="@../styles/styles.css">
@@ -43,6 +58,11 @@
             </Label>
             <PasswordField fx:id="registerPasswordField" layoutX="35.0" layoutY="54.0" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="40.0" prefHeight="30.0" prefWidth="298.0" promptText="Introduzca una contraseña" />
             <PasswordField fx:id="registerRepeatPasswordField" layoutX="35.0" layoutY="102.0" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="40.0" prefHeight="30.0" prefWidth="298.0" promptText="Repita su contraseña" />
+            <Label fx:id="passwordRegisterAdviseLabel" layoutX="56.0" layoutY="142.0" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <Label fx:id="nicknameRegisterAdviseLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="88.0" layoutY="493.0" minWidth="300.0" wrapText="true">
@@ -57,7 +77,7 @@
       </StackPane>
       <JFXButton fx:id="backButton" contentDisplay="CENTER" layoutX="25.0" layoutY="31.0" onAction="#onClickBackButton" prefHeight="38.0" prefWidth="38.0" text=" " textAlignment="CENTER">
          <graphic>
-            <ImageView fx:id="backButton" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
+            <ImageView fx:id="imageViewbackButton" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
                <image>
                   <Image url="@../images/adelante.png" />
                </image>
@@ -78,5 +98,6 @@
             </JFXButton>
          </children>
       </Pane>
+      <JFXButton fx:id="changeImageButton" layoutX="346.0" layoutY="226.0" onAction="#onClicChangeImage" prefHeight="46.0" prefWidth="46.0" styleClass="changeImageButton" stylesheets="@../styles/styles.css" text=" " />
    </children>
 </AnchorPane>

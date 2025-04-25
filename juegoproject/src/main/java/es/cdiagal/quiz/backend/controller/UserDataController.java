@@ -2,16 +2,24 @@ package es.cdiagal.quiz.backend.controller;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.Optional;
 
+import com.fasterxml.jackson.databind.ser.std.InetAddressSerializer;
 import com.jfoenix.controls.JFXButton;
 
 import es.cdiagal.quiz.backend.controller.abstractas.AbstractController;
+import es.cdiagal.quiz.backend.controller.GameController;
+import es.cdiagal.quiz.backend.controller.QuestionGameController;
 import es.cdiagal.quiz.backend.dao.UsuarioDAO;
+import es.cdiagal.quiz.backend.model.entities.PartidaModel;
 import es.cdiagal.quiz.backend.model.entities.UsuarioModel;
 import es.cdiagal.quiz.initApp.MainApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,7 +29,7 @@ public class UserDataController extends AbstractController {
     @FXML JFXButton backButton;
     @FXML JFXButton playButton;
     @FXML Label userWellcomeLabel;
-    @FXML ImageView profileImageView;
+    @FXML ImageView updateImageView;
     @FXML JFXButton changeImageButton;
     @FXML Label nicknameLabel;
     @FXML Label emailUserDataLabel;
@@ -62,7 +70,10 @@ public class UserDataController extends AbstractController {
             byte[] imagenBytes = dao.obtenerImagen(usuario.getId());
             if (imagenBytes != null) {
                 InputStream is = new ByteArrayInputStream(imagenBytes);
-                profileImageView.setImage(new Image(is));
+                updateImageView.setImage(new Image(is));
+            } else {
+                InputStream is = getClass().getResourceAsStream("/images/profile.png");
+                updateImageView.setImage(new Image(is));
             }
         }
     }
@@ -74,11 +85,11 @@ public class UserDataController extends AbstractController {
     public void onClicChangeImage() {
         try {
             Stage stage = (Stage) changeImageButton.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("/fxml/updateUserData.fxml"));
-            Scene scene = new Scene(loader.load());
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/fxml/updateUserData.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
     
-            UpdateUserDataController controller = loader.getController();
-            controller.setUsuario(usuario);
+            UpdateUserDataController updateUserDataController = fxmlLoader.getController();
+            updateUserDataController.setUsuario(this.usuario);
     
             stage.setTitle("Actualizar perfil");
             stage.setScene(scene);
@@ -94,16 +105,19 @@ public class UserDataController extends AbstractController {
      */
     @FXML
     public void onClickPlay() {
+        
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/fxml/gameView.fxml"));
-            Scene Scene = new Scene(fxmlLoader.load());
-            QuestionGameController questionGameController = fxmlLoader.getController();
-            questionGameController.setUsuario(usuario);
-            questionGameController.iniciarJuego();
-
             Stage stage = (Stage) playButton.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/fxml/gameView.fxml"));
+            Parent root = fxmlLoader.load();
+
+            QuestionGameController gameController = fxmlLoader.getController();
+            gameController.setUsuario(usuario);
+            gameController.iniciarJuego();
+
+            Scene scene = new Scene(root);
             stage.setTitle("Juego");
-            stage.setScene(Scene);
+            stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -139,6 +153,10 @@ public class UserDataController extends AbstractController {
             Stage stage = (Stage) backButton.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/fxml/updateUserData.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
+
+            UpdateUserDataController updateUserDataController = fxmlLoader.getController();
+            updateUserDataController.setUsuario(this.usuario);
+
             stage.setTitle("Actualizar datos");
             stage.setScene(scene);
             stage.sizeToScene();
@@ -172,25 +190,27 @@ public class UserDataController extends AbstractController {
 
     private void cargarImagenUsuario() {
         try {
-            if (usuario.getImagen() != null) {
+            if (usuario != null && usuario.getImagen() != null) {
                 // Si tiene imagen, cargar desde byte[]
                 ByteArrayInputStream bis = new ByteArrayInputStream(usuario.getImagen());
                 Image imagen = new Image(bis);
-                profileImageView.setImage(imagen);
+                updateImageView.setImage(imagen);
             } else {
                 // Si no tiene imagen, cargar por defecto desde resources
-                InputStream is = getClass().getResourceAsStream("/images/profile.png");
+                InputStream is = getClass().getResourceAsStream("/images/profile.png"); // Usa la ruta correcta
                 if (is == null) {
-                    System.out.println("No se encontró la imagen por defecto.");
-                    return;
+                    System.out.println("No se pudo encontrar la imagen por defecto.");
+                    return; // Salir si la imagen no se encuentra
                 }
                 Image imagen = new Image(is);
-                profileImageView.setImage(imagen);
+                updateImageView.setImage(imagen);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+    
+    
     
     /**
      * Metodo que inicializa el cambio de idioma en el ComboBox.

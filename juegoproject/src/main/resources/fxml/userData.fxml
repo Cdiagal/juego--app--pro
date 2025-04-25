@@ -8,8 +8,8 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="userDataAnchorPane" minHeight="700.0" minWidth="450.0" styleClass="userDataAnchorPane" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.cdiagal.quiz.backend.controller.UserDataController">
-   <ImageView fx:id="profileImageView" fitHeight="150.0" fitWidth="200.0" layoutX="150.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true">
+<AnchorPane fx:id="userDataAnchorPane" minHeight="700.0" minWidth="450.0" styleClass="userDataAnchorPane" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.cdiagal.quiz.backend.controller.UserDataController">
+   <ImageView fx:id="updateImageView" fitHeight="150.0" fitWidth="200.0" layoutX="150.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@../images/profile.png" />
       </image>
@@ -93,5 +93,8 @@
       </children>
    </Pane>
    <JFXButton fx:id="changeImageButton" layoutX="264.0" layoutY="132.0" onAction="#onClicChangeImage" prefHeight="43.0" prefWidth="46.0" styleClass="changeImageButton" stylesheets="@../styles/styles.css" text=" " />
-   <JFXButton fx:id="updateButton" layoutX="194.0" layoutY="564.0" onAction="#onClickOpenUpdate" />
+   <JFXButton fx:id="updateButton" alignment="CENTER" layoutX="141.0" layoutY="555.0" minWidth="150.0" onAction="#onClickOpenUpdate" style="-fx-background-color: #74deff;" styleClass="updateButton" stylesheets="@../styles/styles.css" text="🔄 Actualizar datos" textAlignment="CENTER">
+      <font>
+         <Font name="System Bold" size="16.0" />
+      </font></JFXButton>
 </AnchorPane>

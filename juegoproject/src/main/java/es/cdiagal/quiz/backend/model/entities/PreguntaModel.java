@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import javafx.scene.control.Label;
+
 
 
 
@@ -134,27 +136,16 @@ public class PreguntaModel {
         this.dificultad = dificultad;
     }
     
-    
     /**
-     * Devuelve una lista de opciones mezcladas, cada una con su letra identificadora.
-     * @return Lista de opciones ("A. Opción A", etc.) mezcladas.
+     * Método que asigna las respuestas directamente a las etiquetas.
      */
-    public List<String> getOpcionesMezcladas() {
-        Map<String, String> mapa = new LinkedHashMap<>();
-        mapa.put("A", opcionA);
-        mapa.put("B", opcionB);
-        mapa.put("C", opcionC);
-        mapa.put("D", opcionD);
-
-        List<Map.Entry<String, String>> lista = new ArrayList<>(mapa.entrySet());
-        Collections.shuffle(lista);
-
-        List<String> opcionesMezcladas = new ArrayList<>();
-        for (Map.Entry<String, String> entrada : lista) {
-            opcionesMezcladas.add(entrada.getKey() + ". " + entrada.getValue());
-        }
-        return opcionesMezcladas;
+    public void cargarRespuestas(Label respuesta1, Label respuesta2, Label respuesta3, Label respuesta4) {
+        respuesta1.setText("A. " + opcionA);
+        respuesta2.setText("B. " + opcionB);
+        respuesta3.setText("C. " + opcionC);
+        respuesta4.setText("D. " + opcionD);
     }
+    
     /**
      * Metodos equals() y hashCode().
      */
