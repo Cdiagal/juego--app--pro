@@ -89,10 +89,10 @@ public class QuestionGameController extends AbstractController {
     
         // Mostrar puntos y nivel desde el inicio
         if (puntosLabel != null) {
-            puntosLabel.setText("Puntos: " + usuario.getPuntos());
+            puntosLabel.setText(getPropertiesLanguage().getProperty("puntosLabel") + ": " + usuario.getPuntos());
         }
         if (nivelLabel != null) {
-            nivelLabel.setText("Nivel: " + usuario.getNivel());
+            nivelLabel.setText(getPropertiesLanguage().getProperty("nivelLabel") + ": " + usuario.getNivel());
         }
     
         mostrarPregunta();
@@ -124,7 +124,7 @@ public class QuestionGameController extends AbstractController {
         tiempoRestante = tiempoTotal;
          // Inicializa la barra de progreso al 100% y muestra el tiempo restante
         timerBar.setProgress(1.0);
-        timeLabel.setText("Tiempo: " + tiempoRestante + "s");
+        timeLabel.setText(getPropertiesLanguage().getProperty("timeLabel") + tiempoRestante + "s");
 
         // Configura la animación para la barra de progreso visual
         timeline = new Timeline(
@@ -146,7 +146,7 @@ public class QuestionGameController extends AbstractController {
         // Cuenta regresiva: cada segundo actualiza el label del tiempo.
         tiempoTexto = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
             tiempoRestante--;
-            timeLabel.setText("Tiempo: " + tiempoRestante + "s");
+            timeLabel.setText(getPropertiesLanguage().getProperty("timeLabel") + tiempoRestante + "s");
 
             // Sonido que se emite cuando la barra de tiempo esta por debajo de 5".
             if (tiempoRestante == 5 && ticTacClip != null && !sonidoIniciado) {
@@ -231,8 +231,10 @@ public class QuestionGameController extends AbstractController {
 
             respuestasCorrectas++;
     
-            if (nivelLabel != null) nivelLabel.setText("Nivel: " + usuario.getNivel());
-            if (puntosLabel != null) puntosLabel.setText("Puntos: " + usuario.getPuntos());
+            if (nivelLabel != null)
+                nivelLabel.setText(getPropertiesLanguage().getProperty("nivelLabel") + ": " + usuario.getNivel());
+            if (puntosLabel != null)
+                puntosLabel.setText(getPropertiesLanguage().getProperty("puntosLabel") + ": " + usuario.getPuntos());
     
             feedbackLabel.setText("¡Correcto!");
             feedbackLabel.setStyle("-fx-text-fill: green;");
@@ -242,29 +244,6 @@ public class QuestionGameController extends AbstractController {
                 terminarJuego();
             } else {
                 new Timeline(new KeyFrame(Duration.seconds(2), e -> siguientePregunta())).play();
-            }
-    
-            if (usuario.getRachaCorrectasSeguidas() == 5) {
-                tiempoRestante = Math.min(tiempoRestante + 2, 60);
-                timeLabel.setText("Tiempo: " + tiempoRestante + "s");
-    
-                bonusLabel.setText("+2 BONUS");
-                bonusLabel.setStyle("-fx-fill: green; -fx-font-weight: bold;");
-                bonusLabel.setVisible(true);
-    
-                ScaleTransition scale = new ScaleTransition(Duration.seconds(0.3), bonusLabel);
-                scale.setFromX(1);
-                scale.setFromY(1);
-                scale.setToX(1.6);
-                scale.setToY(1.6);
-    
-                FadeTransition fade = new FadeTransition(Duration.seconds(1.2), bonusLabel);
-                fade.setFromValue(1.0);
-                fade.setToValue(0.0);
-                fade.setDelay(Duration.seconds(0.3));
-    
-                scale.setOnFinished(e -> fade.play());
-                scale.play();
             }
     
         } else {
@@ -431,10 +410,6 @@ public class QuestionGameController extends AbstractController {
             nivelLabel.setText(getPropertiesLanguage().getProperty("nivelLabel"));
             puntosLabel.setText(getPropertiesLanguage().getProperty("puntosLabel"));
             timeLabel.setText(getPropertiesLanguage().getProperty("timeLabel"));
-            optionLabel1.setText(getPropertiesLanguage().getProperty("optionLabel1"));
-            optionLabel2.setText(getPropertiesLanguage().getProperty("optionLabel2"));
-            optionLabel3.setText(getPropertiesLanguage().getProperty("optionLabel3"));
-            optionLabel4.setText(getPropertiesLanguage().getProperty("optionLabel4"));
         }
     }
 }

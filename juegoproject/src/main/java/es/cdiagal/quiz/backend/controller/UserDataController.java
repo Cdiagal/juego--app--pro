@@ -51,12 +51,12 @@ public class UserDataController extends AbstractController {
      */
     public void usuarioData() {
         if (usuario != null && getPropertiesLanguage() != null) {
-            userWellcomeLabel.setText(getPropertiesLanguage().getProperty("userWelcomeLabel ") + ", " + usuario.getNickname() + "!");
-            nicknameLabel.setText(getPropertiesLanguage().getProperty("nicknameLabel ")  + usuario.getNickname());
-            emailUserDataLabel.setText(getPropertiesLanguage().getProperty("emailUserDataLabel ")  + usuario.getEmail());
-            levelUserDataLabel.setText(getPropertiesLanguage().getProperty("levelUserDataLabel ") + usuario.getNivel());
-            rateUserDataLabel.setText(getPropertiesLanguage().getProperty("rateUserDataLabel ") + usuario.getRacha());
-            pxUserDataLabel.setText(getPropertiesLanguage().getProperty("pxUserDataLabel ") + usuario.getPuntos());
+            userWellcomeLabel.setText(getPropertiesLanguage().getProperty("userWelcomeLabel") + ", " + usuario.getNickname() + "!");
+            nicknameLabel.setText(getPropertiesLanguage().getProperty("nicknameLabel") + ": " + usuario.getNickname());
+            emailUserDataLabel.setText(getPropertiesLanguage().getProperty("emailUserDataLabel") + ": " + usuario.getEmail());
+            levelUserDataLabel.setText(getPropertiesLanguage().getProperty("levelUserDataLabel") + ": " + usuario.getNivel());
+            rateUserDataLabel.setText(getPropertiesLanguage().getProperty("rateUserDataLabel") + ": " + usuario.getRacha());
+            pxUserDataLabel.setText(getPropertiesLanguage().getProperty("pxUserDataLabel") + ": " + usuario.getPuntos());
             cargarImagenUsuario();
 
             // Mostrar imagen de perfil si existe
@@ -243,7 +243,6 @@ public class UserDataController extends AbstractController {
             setPropertiesLanguage(loadLanguage("language", language));
         }
         if(getPropertiesLanguage() != null){
-    
         playButton.setText(getPropertiesLanguage().getProperty("playButton"));
         logoutButton.setText(getPropertiesLanguage().getProperty("logoutButton"));
         updateButton.setText(getPropertiesLanguage().getProperty("updateButton"));
