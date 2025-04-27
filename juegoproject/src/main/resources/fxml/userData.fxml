@@ -6,15 +6,20 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="userDataAnchorPane" minHeight="700.0" minWidth="450.0" styleClass="userDataAnchorPane" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.cdiagal.quiz.backend.controller.UserDataController">
-   <ImageView fx:id="updateImageView" fitHeight="150.0" fitWidth="200.0" layoutX="150.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@../images/profile.png" />
-      </image>
-   </ImageView>
-   <ImageView fx:id="imagePencil" fitHeight="38.0" fitWidth="40.0" layoutX="268.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true">
+   <StackPane layoutX="125.0" layoutY="28.0" minHeight="150.0" minWidth="200.0" prefHeight="150.0" prefWidth="200.0">
+      <children>
+         <ImageView fx:id="updateImageView" fitHeight="150.0" fitWidth="200.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+            <image>
+               <Image url="@../images/profile.png" />
+            </image>
+         </ImageView>
+      </children>
+   </StackPane>
+   <ImageView fx:id="imagePencil" fitHeight="38.0" fitWidth="40.0" layoutX="281.0" layoutY="151.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@../images/camara.png" />
       </image>
@@ -42,7 +47,9 @@
          </JFXButton>
       </children>
    </Pane>
-   <Label fx:id="userWellcomeLabel" contentDisplay="CENTER" layoutX="125.0" layoutY="210.0" textAlignment="CENTER" wrapText="true">
+   <Label fx:id="userWellcomeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="224.0" layoutY="211.0" textAlignment="CENTER" wrapText="true">
+            <AnchorPane.leftAnchor>0.0</AnchorPane.leftAnchor>
+            <AnchorPane.rightAnchor>0.0</AnchorPane.rightAnchor>
       <font>
          <Font name="System Bold" size="22.0" />
       </font>
@@ -92,8 +99,8 @@
          </Label>
       </children>
    </Pane>
-   <JFXButton fx:id="changeImageButton" layoutX="264.0" layoutY="132.0" onAction="#onClicChangeImage" prefHeight="43.0" prefWidth="46.0" styleClass="changeImageButton" stylesheets="@../styles/styles.css" text=" " />
-   <JFXButton fx:id="updateButton" alignment="CENTER" layoutX="141.0" layoutY="555.0" minWidth="150.0" onAction="#onClickOpenUpdate" style="-fx-background-color: #74deff;" styleClass="updateButton" stylesheets="@../styles/styles.css" text="🔄 Actualizar datos" textAlignment="CENTER">
+   <JFXButton fx:id="changeImageButton" layoutX="277.0" layoutY="148.0" onAction="#onClicChangeImage" prefHeight="43.0" prefWidth="46.0" styleClass="changeImageButton" stylesheets="@../styles/styles.css" text=" " />
+   <JFXButton fx:id="updateButton" alignment="CENTER" layoutX="141.0" layoutY="555.0" minWidth="150.0" onAction="#onClickOpenUpdate" style="-fx-background-color: #017f76;" styleClass="updateButton" stylesheets="@../styles/styles.css" text="🔄 Actualizar datos" textAlignment="CENTER" textFill="WHITE">
       <font>
          <Font name="System Bold" size="16.0" />
       </font></JFXButton>

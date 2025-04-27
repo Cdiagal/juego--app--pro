@@ -129,7 +129,9 @@ public class RegisterController  extends AbstractController{
         }
     }
     
-
+    /**
+     * Validación de los datos aportados para el registro antes de hacerse efectivo.
+     */
     private boolean validarDatos(){
         if(registerNicknameTextField.getText().isEmpty()){
             nicknameRegisterAdviseLabel.setText(getPropertiesLanguage().getProperty("nicknameRegisterAdviseLabel"));
@@ -208,6 +210,7 @@ public class RegisterController  extends AbstractController{
         if(getPropertiesLanguage()==null){
             setPropertiesLanguage(loadLanguage("language", getIdiomaActual()));
         }
+        registerNicknameTextField.requestFocus();
         changeLanguage();
     }
 

@@ -17,11 +17,12 @@
          <children>
             <Pane prefHeight="688.0" prefWidth="400.0">
                <children>
-                  <Label fx:id="registerBigLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="111.0" layoutY="25.0" minHeight="40.0" minWidth="150.0" text="REGISTRO" wrapText="true">
+                  <Label fx:id="registerBigLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="119.0" layoutY="14.0" minHeight="40.0" minWidth="150.0" text="REGISTRO" textFill="#663a99" wrapText="true">
                      <font>
-                        <Font name="Comic Sans MS Bold" size="25.0" />
+                        <Font name="Baloo 2 Bold" size="35.0" />
                      </font>
-                  </Label>
+                     </Label>
+                  
                   <Pane fx:id="nicknameRegisterPane" layoutX="61.0" layoutY="82.0" prefHeight="118.0" prefWidth="278.0" styleClass="nicknameRegisterPane" stylesheets="@../styles/styles.css">
                      <children>
                         <Label fx:id="registerNicknameLabel" layoutX="37.0" layoutY="20.0" text="Alias" textFill="WHITE" wrapText="true">
@@ -75,9 +76,9 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="112.0" fitWidth="115.0" layoutX="249.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="registerImageView" fitHeight="128.0" fitWidth="123.0" layoutX="263.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/brain-register%20(2).png" />
+                        <Image url="@../images/brain-user.png" />
                      </image>
                   </ImageView>
                </children>

@@ -2,27 +2,21 @@ package es.cdiagal.quiz.backend.controller;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.Optional;
 
-import com.fasterxml.jackson.databind.ser.std.InetAddressSerializer;
 import com.jfoenix.controls.JFXButton;
 
 import es.cdiagal.quiz.backend.controller.abstractas.AbstractController;
-import es.cdiagal.quiz.backend.controller.GameController;
-import es.cdiagal.quiz.backend.controller.QuestionGameController;
 import es.cdiagal.quiz.backend.dao.UsuarioDAO;
-import es.cdiagal.quiz.backend.model.entities.PartidaModel;
 import es.cdiagal.quiz.backend.model.entities.UsuarioModel;
 import es.cdiagal.quiz.initApp.MainApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 public class UserDataController extends AbstractController {
@@ -56,13 +50,13 @@ public class UserDataController extends AbstractController {
      * Muestra los datos del usuario en la interfaz.
      */
     public void usuarioData() {
-        if (usuario != null) {
-            userWellcomeLabel.setText("¡Hola, " + usuario.getNickname() + "!");
-            nicknameLabel.setText("Alias: " + usuario.getNickname());
-            emailUserDataLabel.setText("Email: " + usuario.getEmail());
-            levelUserDataLabel.setText("Nivel: " + usuario.getNivel());
-            rateUserDataLabel.setText("Racha: " + usuario.getRacha());
-            pxUserDataLabel.setText("Puntos: " + usuario.getPuntos());
+        if (usuario != null && getPropertiesLanguage() != null) {
+            userWellcomeLabel.setText(getPropertiesLanguage().getProperty("userWelcomeLabel ") + ", " + usuario.getNickname() + "!");
+            nicknameLabel.setText(getPropertiesLanguage().getProperty("nicknameLabel ")  + usuario.getNickname());
+            emailUserDataLabel.setText(getPropertiesLanguage().getProperty("emailUserDataLabel ")  + usuario.getEmail());
+            levelUserDataLabel.setText(getPropertiesLanguage().getProperty("levelUserDataLabel ") + usuario.getNivel());
+            rateUserDataLabel.setText(getPropertiesLanguage().getProperty("rateUserDataLabel ") + usuario.getRacha());
+            pxUserDataLabel.setText(getPropertiesLanguage().getProperty("pxUserDataLabel ") + usuario.getPuntos());
             cargarImagenUsuario();
 
             // Mostrar imagen de perfil si existe
@@ -208,9 +202,23 @@ public class UserDataController extends AbstractController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        aplicarClipCircular(updateImageView);
     }
     
     
+    /**
+     * Genera un circulo para aplicarlo al ImageView y que tenga forma de circulo.
+     */
+    private void aplicarClipCircular(ImageView imageView) {
+        if (imageView != null) {
+    
+            double radius = Math.min(imageView.getFitWidth(), imageView.getFitHeight()) / 2;
+            Circle clip = new Circle(imageView.getFitWidth() / 2, imageView.getFitHeight() / 2, radius);
+            imageView.setClip(clip);
+        } else {
+            System.out.println("Error: ImageView es null");
+        }
+    }
     
     /**
      * Metodo que inicializa el cambio de idioma en el ComboBox.
@@ -235,13 +243,11 @@ public class UserDataController extends AbstractController {
             setPropertiesLanguage(loadLanguage("language", language));
         }
         if(getPropertiesLanguage() != null){
-
-        pxUserDataLabel.setText(getPropertiesLanguage().getProperty("pxUserDataLabel"));
-        rateUserDataLabel.setText(getPropertiesLanguage().getProperty("rateUserDataLabel"));
-        emailUserDataLabel.setText(getPropertiesLanguage().getProperty("emailUserDataLabel"));
-        nicknameLabel.setText(getPropertiesLanguage().getProperty("nicknameLabel"));
+    
         playButton.setText(getPropertiesLanguage().getProperty("playButton"));
         logoutButton.setText(getPropertiesLanguage().getProperty("logoutButton"));
+        updateButton.setText(getPropertiesLanguage().getProperty("updateButton"));
+        
         }
     }
 }

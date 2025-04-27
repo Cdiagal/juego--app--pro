@@ -1,19 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="712.0" prefWidth="525.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="deleteAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700.0" minWidth="450.0" styleClass="deleteAnchorPane" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.cdiagal.quiz.backend.controller.DeleteUserController">
    <children>
-      <TextField fx:id="nickTextField" layoutX="177.0" layoutY="370.0" promptText="Introduzca su alias" />
-      <JFXButton fx:id="deleteButton" layoutX="188.0" layoutY="542.0" />
-      <JFXButton fx:id="backButton" layoutX="302.0" layoutY="542.0" />
-      <PasswordField fx:id="deletePasswordField1" layoutX="177.0" layoutY="421.0" />
-      <PasswordField fx:id="deletePasswordField2" layoutX="177.0" layoutY="474.0" />
-      <Label fx:id="deleteBigLabel" layoutX="232.0" layoutY="176.0" text="Label" />
+      <Pane fx:id="deletePane" layoutX="75.0" layoutY="121.0" minHeight="414.0" minWidth="300.0" prefHeight="414.0" prefWidth="300.0" styleClass="deletePane" stylesheets="@../styles/styles.css">
+         <children>
+            <TextField fx:id="registerNicknameTextField" alignment="CENTER" layoutX="51.0" layoutY="198.0" minHeight="30.0" minWidth="198.0" promptText="Introduzca su alias">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></TextField>
+            <PasswordField fx:id="registerPasswordField" alignment="CENTER" layoutX="51.0" layoutY="253.0" minHeight="30.0" minWidth="198.0" promptText="Introduzca su contraseña">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></PasswordField>
+            <PasswordField fx:id="registerRepeatPasswordField" alignment="CENTER" layoutX="51.0" layoutY="310.0" minHeight="30.0" minWidth="198.0" promptText="Repita su contraseña">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></PasswordField>
+            <ImageView fx:id="deleteImageView" fitHeight="224.0" fitWidth="257.0" layoutX="76.0" layoutY="-26.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/brain-delete.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane fx:id="userDataButtonPane" layoutY="617.0" prefHeight="95.0" prefWidth="450.0" styleClass="userDataButtonPane" stylesheets="@../styles/styles.css">
+         <children>
+            <JFXButton fx:id="deleteButton" layoutX="74.0" layoutY="30.0" minHeight="35.0" minWidth="35.0" onAction="#onClickDelete" styleClass="playButton" stylesheets="@../styles/styles.css" text="❌ ELIMINAR" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <JFXButton fx:id="logoutButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="259.0" layoutY="30.0" minHeight="35.0" minWidth="35.0" onAction="#onClicLogout" styleClass="logoutButton" stylesheets="@../styles/styles.css" text="👋 SALIR" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+         </children>
+      </Pane>
+      <Label fx:id="deleteBigLabel" layoutX="149.0" layoutY="41.0" styleClass="deleteBigLabel" stylesheets="@../styles/styles.css" text="ELIMINAR" textFill="#663a99">
+         <font>
+            <Font name="Baloo 2 Bold" size="35.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="backButton" contentDisplay="CENTER" layoutX="14.0" layoutY="33.0" onAction="#onClickBackButton" prefHeight="38.0" prefWidth="38.0" text=" " textAlignment="CENTER">
+         <graphic>
+            <ImageView fx:id="imageViewbackButton" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
+               <image>
+                  <Image url="@../images/adelante.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+         </graphic>
+      </JFXButton>
    </children>
 </AnchorPane>

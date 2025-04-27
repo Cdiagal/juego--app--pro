@@ -186,6 +186,8 @@
     -fx-border-color:#000000;
     -fx-border-width:2;
     -fx-background-color: rgb(170, 170, 170);
+    -fx-border-radius:10px;
+    -fx-background-radius:10px;
 }
 
 .playButton{
@@ -215,7 +217,7 @@
     -fx-border-width:2;
     -fx-border-radius:20px;
     -fx-background-radius:20px;
-    -fx-background-color: #d83c0d;
+    -fx-background-color: #663a99;
 }
 
 .updateButton{
@@ -223,7 +225,7 @@
     -fx-border-width:2;
     -fx-border-radius:20px;
     -fx-background-radius:20px;
-    -fx-background-color: #74deff;
+    -fx-background-color: #017f76;
 }
 
 
@@ -234,15 +236,8 @@
     -fx-background-color: #fef3df;
 }
 
-
-.userDataButtonPane{
-    -fx-border-color:#000000;
-    -fx-border-width:2;
-    -fx-background-color: rgb(170, 170, 170);
-}
-
 .updateButton{
-    -fx-border-color:#000000;
+    -fx-border-color:white;
     -fx-border-width:2;
     -fx-border-radius:20px;
     -fx-background-radius:20px;
@@ -250,7 +245,7 @@
 }
 
 .deleteUserButton{
-    -fx-border-color:#000000;
+    -fx-border-color:white;
     -fx-border-width:2;
     -fx-border-radius:20px;
     -fx-background-radius:20px;
@@ -285,61 +280,33 @@
     -fx-text-fill: black; /* Opcional */
 }
 
-/**
-.loginLabel{
-    fx-font-size: 22px ;
+
+/*DELETE*/
+
+.deleteAnchorPane{
+    -fx-background-color: #fef3df;
 }
 
-.root {
-    -fx-font-family: 'Segoe UI', sans-serif;
+
+
+.deletePane{
+    -fx-background-color: #017f76;
+    -fx-border-radius: 15;
+    -fx-background-radius:15;
+    -fx-border-color:#ebb106;
+    -fx-border-width: 4px;
 }
 
-.background-pane {
-    -fx-background-color: #f7f3e9;
-    -fx-padding: 20;
+
+
+/*RECOVER*/
+
+.deleteAnchorPane{
+    -fx-background-color: #fef3df;
 }
 
-.title-label {
-    -fx-font-size: 32px;
-    -fx-text-fill: #5e2b97;
-    -fx-font-weight: bold;
+.recoverAPane{
+    -fx-background-color: #663a99;
+    -fx-border-radius: 15;
+    -fx-background-radius:15;
 }
-
-.subtitle-label {
-    -fx-font-size: 18px;
-    -fx-text-fill: #e77b00;
-}
-
-.form-title {
-    -fx-font-size: 22px;
-    -fx-text-fill: #00bfb2;
-}
-
-.main-button {
-    -fx-background-color: #5e2b97;
-    -fx-text-fill: white;
-    -fx-font-size: 14px;
-    -fx-padding: 10 20;
-    -fx-background-radius: 8;
-}
-
-.option-button {
-    -fx-background-color: #e77b00;
-    -fx-text-fill: white;
-    -fx-font-size: 16px;
-    -fx-background-radius: 8;
-    -fx-padding: 10;
-    -fx-pref-width: 200px;
-}
-
-.question-label {
-    -fx-font-size: 20px;
-    -fx-padding: 20;
-    -fx-text-fill: #333;
-    -fx-wrap-text: true;
-}
-
-.progress-bar {
-    -fx-accent: #00bfb2;
-}
-    */

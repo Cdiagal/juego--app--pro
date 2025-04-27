@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXButton;
 import es.cdiagal.quiz.backend.controller.abstractas.AbstractController;
 import es.cdiagal.quiz.backend.dao.UsuarioDAO;
 import es.cdiagal.quiz.backend.model.entities.UsuarioModel;
+import es.cdiagal.quiz.backend.model.utils.service.HashUtils;
 import es.cdiagal.quiz.initApp.MainApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,10 +26,11 @@ public class DeleteUserController extends AbstractController {
     private final UsuarioDAO usuarioDAO;
 
     @FXML private Label deleteBigLabel;
-    @FXML private TextField nickTextField;
-    @FXML private PasswordField deletePasswordField1;
-    @FXML private PasswordField deletePasswordField2;
+    @FXML private TextField registerNicknameTextField;
+    @FXML private PasswordField registerPasswordField;
+    @FXML private PasswordField registerRepeatPasswordField;
     @FXML private JFXButton deleteButton;
+    @FXML private JFXButton logoutButton;
     @FXML private JFXButton backButton;
 
     public DeleteUserController() {
@@ -44,7 +46,7 @@ public class DeleteUserController extends AbstractController {
         if(getPropertiesLanguage()==null){
             setPropertiesLanguage(loadLanguage("language", getIdiomaActual()));
         }
-        nickTextField.requestFocus();
+        registerNicknameTextField.requestFocus();
         changeLanguage();
     }
 
@@ -62,10 +64,12 @@ public class DeleteUserController extends AbstractController {
         if(getPropertiesLanguage() != null){
 
         deleteBigLabel.setText(getPropertiesLanguage().getProperty("deleteBigLabel"));
-        nickTextField.setPromptText(getPropertiesLanguage().getProperty("nickTextFieldPromptText"));
-        deletePasswordField1.setPromptText(getPropertiesLanguage().getProperty("deletePasswordField1PrompText"));
-        deletePasswordField2.setPromptText(getPropertiesLanguage().getProperty("deletePasswordfield2PrompText"));
+        registerNicknameTextField.setPromptText(getPropertiesLanguage().getProperty("nickTextFieldPromptText"));
+        registerPasswordField.setPromptText(getPropertiesLanguage().getProperty("deletePasswordField1PrompText"));
+        registerRepeatPasswordField.setPromptText(getPropertiesLanguage().getProperty("deletePasswordfield2PrompText"));
         deleteButton.setText(getPropertiesLanguage().getProperty("deleteButton"));
+        logoutButton.setText(getPropertiesLanguage().getProperty("logoutButton"));
+        
         }
     }
 
@@ -73,28 +77,26 @@ public class DeleteUserController extends AbstractController {
      * Valida que los datos de entrada sean correctos.
      */
     private boolean validarDatos() {
-        String nick = nickTextField.getText().trim();
-        String password = deletePasswordField1.getText();
-        String repeatPassword = deletePasswordField2.getText();
 
         // Campos vacios.
-        if (nick.isEmpty() || password.isEmpty() || repeatPassword.isEmpty()) {
+        if (registerNicknameTextField.getText().isEmpty() || registerPasswordField.getText().isEmpty() || registerRepeatPasswordField.getText().isEmpty()) {
             showAlert(Alert.AlertType.WARNING, "Campos incompletos", "Debes rellenar todos los campos.");
             return false;
         }
         // Contrasenias diferentes.
-        if (!password.equals(repeatPassword)) {
+        if (!registerPasswordField.getText().equals(registerRepeatPasswordField.getText())) {
             showAlert(Alert.AlertType.ERROR, "Contraseñas diferentes", "Las contraseñas no coinciden.");
             return false;
         }
         // Usuario inexistente.
-        UsuarioModel usuario = usuarioDAO.buscarPorNick(nick);
+        UsuarioModel usuario = usuarioDAO.buscarPorNick(registerNicknameTextField.getText());
         if (usuario == null) {
             showAlert(Alert.AlertType.ERROR, "Usuario no encontrado", "No existe ningún usuario con ese alias.");
             return false;
         }
-        // Password iguales.
-        if (!usuario.getPassword().equals(password)) {
+        // Contrasenias iguales.
+        String password = registerPasswordField.getText();
+        if (!HashUtils.verificarPassword(password, usuario.getPassword())) {
             showAlert(Alert.AlertType.ERROR, "Contraseña incorrecta", "La contraseña no coincide con la del usuario.");
             return false;
         }
@@ -108,7 +110,7 @@ public class DeleteUserController extends AbstractController {
     protected void onClickDelete() {
         if (!validarDatos()) return;
 
-        String nick = nickTextField.getText().trim();
+        String nick = registerNicknameTextField.getText().trim();
         UsuarioModel usuario = usuarioDAO.buscarPorNick(nick);
         showAlert(Alert.AlertType.WARNING, "Eliminar usuario", "A continuación se va a eliminar el usuario de forma permanente \n ¿Estás seguro de continuar?");
         ButtonType confirmar = new ButtonType("Continuar");
@@ -128,9 +130,9 @@ public class DeleteUserController extends AbstractController {
     protected void onClickBackButton() {
         try {
             Stage stage = (Stage) backButton.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("/fxml/innit.fxml"));
-            Scene scene = new Scene(loader.load(), 450, 600);
-            stage.setTitle("BrainQuiz");
+            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("/fxml/updateUserData.fxml"));
+            Scene scene = new Scene(loader.load(),853,651);
+            stage.setTitle("Actualizar");
             stage.setScene(scene);
             stage.sizeToScene();
             stage.show();
@@ -139,6 +141,23 @@ public class DeleteUserController extends AbstractController {
         }
     }
 
+    /**
+     * Metodo que cierra la sesión del usuario.
+     */
+    @FXML
+    public void onClicLogout() {
+        try {
+            Stage stage = (Stage) logoutButton.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/fxml/innit.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 450, 600);
+            stage.setTitle("BrainQuiz");
+            stage.setScene(scene);
+            stage.sizeToScene();
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * Funcion que muestra una alerta genérica.
      */

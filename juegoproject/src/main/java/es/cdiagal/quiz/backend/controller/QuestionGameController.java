@@ -402,4 +402,39 @@ public class QuestionGameController extends AbstractController {
     @FXML private void onClickOption2() { comprobarRespuesta(optionLabel2.getText(), optionPane2); }
     @FXML private void onClickOption3() { comprobarRespuesta(optionLabel3.getText(), optionPane3); }
     @FXML private void onClickOption4() { comprobarRespuesta(optionLabel4.getText(), optionPane4); }
+
+
+    /**
+     * Metodo que inicializa el cambio de idioma en el ComboBox.
+     */
+    @FXML
+    public void initialize(){
+        if(getPropertiesLanguage()==null){
+            setPropertiesLanguage(loadLanguage("language", getIdiomaActual()));
+        }
+        changeLanguage();
+    }
+
+    
+    /**
+     * Funcion que cambia el idioma de las etiquetas y objetos de la ventana
+     */
+    @FXML
+    public void changeLanguage() {
+        String language = AbstractController.getIdiomaActual();
+
+        if(getPropertiesLanguage() == null){
+            setPropertiesLanguage(loadLanguage("language", language));
+        }
+        if(getPropertiesLanguage() != null){
+    
+            nivelLabel.setText(getPropertiesLanguage().getProperty("nivelLabel"));
+            puntosLabel.setText(getPropertiesLanguage().getProperty("puntosLabel"));
+            timeLabel.setText(getPropertiesLanguage().getProperty("timeLabel"));
+            optionLabel1.setText(getPropertiesLanguage().getProperty("optionLabel1"));
+            optionLabel2.setText(getPropertiesLanguage().getProperty("optionLabel2"));
+            optionLabel3.setText(getPropertiesLanguage().getProperty("optionLabel3"));
+            optionLabel4.setText(getPropertiesLanguage().getProperty("optionLabel4"));
+        }
+    }
 }

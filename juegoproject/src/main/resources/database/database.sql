@@ -16,8 +16,8 @@ CREATE TABLE IF NOT EXISTS preguntas (
     opcionB TEXT NOT NULL,
     opcionC TEXT NOT NULL,
     opcionD TEXT NOT NULL,
-    respuesta_correcta TEXT NOT NULL, 
-    dificultad INTEGER NOT NULL 
+    respuesta_correcta TEXT NOT NULL,
+    dificultad INTEGER NOT NULL
 );
 
 -- Tabla de partidas jugadas por cada usuario

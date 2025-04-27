@@ -108,9 +108,9 @@ public class LoginController extends AbstractController{
     public void onClicRecoverPassword(){
         try {
             Stage stage = (Stage) recoveryLink.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/fxml/recoverPassword.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 451,600);
-            stage.setTitle(getPropertiesLanguage().getProperty("recoverPasswordTitle"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/fxml/recover.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setTitle("Recuperar contraseña");
             stage.setScene(scene);
             stage.sizeToScene();
             stage.show();

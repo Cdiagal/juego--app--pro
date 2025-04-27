@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -13,7 +15,7 @@
 
 <AnchorPane fx:id="updateAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="450.0" minWidth="650.0" prefHeight="561.0" prefWidth="853.0" styleClass="updateAnchorPane" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.cdiagal.quiz.backend.controller.UpdateUserDataController">
    <children>
-      <ImageView fx:id="cameraIV" fitHeight="40.0" fitWidth="40.0" layoutX="349.0" layoutY="229.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="cameraIV" fitHeight="40.0" fitWidth="40.0" layoutX="319.0" layoutY="229.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/camara.png" />
          </image>
@@ -25,8 +27,11 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="registerNicknameTextField" layoutX="37.0" layoutY="49.0" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="40.0" prefHeight="30.0" prefWidth="298.0" promptText="Introduzca un alias" />
-            <Label fx:id="nicknameRegisterAdviseLabel" layoutX="68.0" layoutY="85.0" prefHeight="17.0" prefWidth="20.0" textFill="WHITE" wrapText="true">
+            <TextField fx:id="registerNicknameTextField" alignment="CENTER" layoutX="37.0" layoutY="49.0" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="40.0" prefHeight="30.0" prefWidth="298.0" promptText="Introduzca un alias">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextField>
+            <Label fx:id="nicknameRegisterAdviseLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="55.0" layoutY="87.0" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -40,9 +45,15 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="registerEmailTextField" layoutX="37.0" layoutY="50.0" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="40.0" prefHeight="30.0" prefWidth="298.0" promptText="Introduzca su email" />
-            <TextField fx:id="registerRepeatEmailTextField" layoutX="37.0" layoutY="104.0" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="40.0" prefHeight="30.0" prefWidth="298.0" promptText="Repita su email" />
-            <Label fx:id="emailRegisterAdviseLabel" layoutX="117.0" layoutY="140.0" textFill="WHITE" wrapText="true">
+            <TextField fx:id="registerEmailTextField" alignment="CENTER" layoutX="37.0" layoutY="50.0" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="40.0" prefHeight="30.0" prefWidth="298.0" promptText="Introduzca su email">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextField>
+            <TextField fx:id="registerRepeatEmailTextField" alignment="CENTER" layoutX="37.0" layoutY="104.0" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="40.0" prefHeight="30.0" prefWidth="298.0" promptText="Repita su email">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextField>
+            <Label fx:id="emailRegisterAdviseLabel" alignment="CENTER" layoutX="65.0" layoutY="140.0" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -56,23 +67,30 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <PasswordField fx:id="registerPasswordField" layoutX="35.0" layoutY="54.0" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="40.0" prefHeight="30.0" prefWidth="298.0" promptText="Introduzca una contraseña" />
-            <PasswordField fx:id="registerRepeatPasswordField" layoutX="35.0" layoutY="102.0" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="40.0" prefHeight="30.0" prefWidth="298.0" promptText="Repita su contraseña" />
-            <Label fx:id="passwordRegisterAdviseLabel" layoutX="56.0" layoutY="142.0" textFill="WHITE" wrapText="true">
+            <PasswordField fx:id="registerPasswordField" alignment="CENTER" layoutX="35.0" layoutY="54.0" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="40.0" prefHeight="30.0" prefWidth="298.0" promptText="Introduzca una contraseña">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></PasswordField>
+            <PasswordField fx:id="registerRepeatPasswordField" alignment="CENTER" layoutX="35.0" layoutY="102.0" maxHeight="30.0" maxWidth="200.0" minHeight="30.0" minWidth="40.0" prefHeight="30.0" prefWidth="298.0" promptText="Repita su contraseña">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></PasswordField>
+            <Label fx:id="passwordRegisterAdviseLabel" alignment="CENTER" layoutX="55.0" layoutY="142.0" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <Label fx:id="nicknameRegisterAdviseLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="88.0" layoutY="493.0" minWidth="300.0" wrapText="true">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font>
-      </Label>
-      <StackPane fx:id="updateStackPane" layoutX="153.0" layoutY="69.0" prefHeight="200.0" prefWidth="200.0">
+      <StackPane fx:id="updateStackPane" layoutX="139.0" layoutY="99.0" minHeight="150.0" minWidth="200.0" prefHeight="150.0" prefWidth="200.0">
          <children>
-            <ImageView fx:id="updateImageView" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="updateImageView" fitHeight="150.0" fitWidth="200.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+               <image>
+                  <Image url="@../../../../../../../../Downloads/profile.png" />
+               </image></ImageView>
          </children>
       </StackPane>
       <JFXButton fx:id="backButton" contentDisplay="CENTER" layoutX="25.0" layoutY="31.0" onAction="#onClickBackButton" prefHeight="38.0" prefWidth="38.0" text=" " textAlignment="CENTER">
@@ -81,23 +99,40 @@
                <image>
                   <Image url="@../images/adelante.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
          </graphic>
       </JFXButton>
-      <Pane fx:id="userDataButtonPane" layoutX="244.0" layoutY="476.0" prefHeight="85.0" prefWidth="366.0" styleClass="userDataButtonPane" stylesheets="@../styles/styles.css">
+      <Pane fx:id="userDataButtonPane" layoutX="227.0" layoutY="467.0" minHeight="90.0" minWidth="400.0" styleClass="userDataButtonPane" stylesheets="@../styles/styles.css">
          <children>
             <JFXButton fx:id="updateButton" layoutX="44.0" layoutY="24.0" minHeight="30.0" minWidth="120.0" onAction="#onClickUpdateUser" styleClass="updateButton" stylesheets="@../styles/styles.css" text="Actualizar" textAlignment="CENTER" textFill="#f2efef" wrapText="true">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </JFXButton>
-            <JFXButton fx:id="deleteUserButton" layoutX="204.0" layoutY="24.0" minHeight="30.0" minWidth="120.0" onAction="#onClickDeleteUser" styleClass="deleteUserButton" stylesheets="@../styles/styles.css" text="Eliminar" textFill="WHITE" wrapText="true">
+            <JFXButton fx:id="deleteUserButton" layoutX="241.0" layoutY="24.0" minHeight="30.0" minWidth="120.0" onAction="#onClickDeleteUser" styleClass="deleteUserButton" stylesheets="@../styles/styles.css" text="Eliminar" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </JFXButton>
          </children>
       </Pane>
-      <JFXButton fx:id="changeImageButton" layoutX="346.0" layoutY="226.0" onAction="#onClicChangeImage" prefHeight="46.0" prefWidth="46.0" styleClass="changeImageButton" stylesheets="@../styles/styles.css" text=" " />
+      <JFXButton fx:id="changeImageButton" layoutX="316.0" layoutY="226.0" onAction="#onClicChangeImage" prefHeight="46.0" prefWidth="46.0" styleClass="changeImageButton" stylesheets="@../styles/styles.css" text=" ">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
+      <Label fx:id="updateBigLabel" layoutX="108.0" layoutY="31.0" text="Actualizar Usuario" textFill="#663a99">
+         <font>
+            <Font name="Baloo 2 Bold" size="35.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
